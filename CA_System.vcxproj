@@ -46,6 +46,15 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
   </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Program Files\MySQL\MySQL Server 8.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>C:\Program Files\MySQL\MySQL Server 8.0\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libmysql.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>msvc2019_64</QtInstall>
     <QtModules>core;gui;widgets</QtModules>
@@ -86,7 +95,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ApplyFor.cpp" />
+    <ClCompile Include="Class_File\CertificateClass.cpp" />
+    <ClCompile Include="Class_File\UserClass.cpp" />
+    <ClCompile Include="Class_File\SearchClass.cpp" />
+    <ClCompile Include="Source_Files\ApplyFor.cpp" />
     <ClCompile Include="Source_Files\CA_System.cpp" />
     <QtRcc Include="CA_System.qrc" />
     <ClCompile Include="main.cpp" />
@@ -103,6 +115,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ApplyFor.h" />
+    <ClInclude Include="Class_File\CertificateClass.h" />
+    <ClInclude Include="Class_File\UserClass.h" />
+    <ClInclude Include="Class_File\SearchClass.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

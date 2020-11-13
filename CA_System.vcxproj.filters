@@ -25,6 +25,9 @@
     <Filter Include="UI_Files">
       <UniqueIdentifier>{4a3a508d-5836-4f37-8ead-f9e1da047ba3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Class Files">
+      <UniqueIdentifier>{6e9f06f2-80f1-441f-ba8e-7bbca8978ee8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="CA_System.qrc">
@@ -36,8 +39,17 @@
     <ClCompile Include="Source_Files\CA_System.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ApplyFor.cpp">
+    <ClCompile Include="Source_Files\ApplyFor.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Class_File\CertificateClass.cpp">
+      <Filter>Class Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Class_File\SearchClass.cpp">
+      <Filter>Class Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Class_File\UserClass.cpp">
+      <Filter>Class Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -65,6 +77,15 @@
   <ItemGroup>
     <ClInclude Include="ApplyFor.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Class_File\CertificateClass.h">
+      <Filter>Class Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Class_File\SearchClass.h">
+      <Filter>Class Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Class_File\UserClass.h">
+      <Filter>Class Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

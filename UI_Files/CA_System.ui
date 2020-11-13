@@ -14,10 +14,10 @@
    <string>CA_System</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="ButtonLogIn">
     <property name="geometry">
      <rect>
-      <x>250</x>
+      <x>220</x>
       <y>270</y>
       <width>101</width>
       <height>41</height>
@@ -27,30 +27,20 @@
      <string>登录</string>
     </property>
    </widget>
-   <widget class="QKeySequenceEdit" name="keySequenceEdit">
+   <widget class="QLineEdit" name="LineEditUserName">
     <property name="geometry">
      <rect>
-      <x>330</x>
-      <y>130</y>
-      <width>281</width>
-      <height>51</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit">
-    <property name="geometry">
-     <rect>
-      <x>330</x>
+      <x>300</x>
       <y>60</y>
       <width>281</width>
       <height>31</height>
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="LabelUserName">
     <property name="geometry">
      <rect>
-      <x>250</x>
+      <x>220</x>
       <y>60</y>
       <width>91</width>
       <height>31</height>
@@ -60,10 +50,10 @@
      <string>用户名：</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_2">
+   <widget class="QLabel" name="LabelUserPass">
     <property name="geometry">
      <rect>
-      <x>250</x>
+      <x>220</x>
       <y>140</y>
       <width>91</width>
       <height>31</height>
@@ -73,20 +63,20 @@
      <string>密码：</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="comboBox">
+   <widget class="QComboBox" name="ComboBoxUserKind">
     <property name="geometry">
      <rect>
-      <x>330</x>
+      <x>300</x>
       <y>200</y>
       <width>91</width>
       <height>31</height>
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="label_3">
+   <widget class="QLabel" name="LabelUserKind">
     <property name="geometry">
      <rect>
-      <x>250</x>
+      <x>220</x>
       <y>200</y>
       <width>91</width>
       <height>31</height>
@@ -94,6 +84,29 @@
     </property>
     <property name="text">
      <string>用户身份：</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="ButtonLogUp">
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>270</y>
+      <width>101</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>登录</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="LineEditUserPassWord">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>140</y>
+      <width>281</width>
+      <height>31</height>
+     </rect>
     </property>
    </widget>
   </widget>
@@ -119,7 +132,7 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
-  <include location="CA_System.qrc"/>
+  <include location="../CA_System.qrc"/>
  </resources>
  <connections/>
 </ui>
