@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
+ <class>Serach</class>
+ <widget class="QWidget" name="Serach">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QLabel" name="LabelClientName">
+  <widget class="QLabel" name="LabelUserName">
    <property name="geometry">
     <rect>
      <x>50</x>
@@ -26,21 +26,21 @@
     <string>用户：</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="ComboBoxSearchFunction">
+  <widget class="QComboBox" name="ComboBoxSearchKind">
    <property name="geometry">
     <rect>
      <x>170</x>
-     <y>70</y>
-     <width>111</width>
+     <y>140</y>
+     <width>261</width>
      <height>51</height>
     </rect>
    </property>
   </widget>
-  <widget class="QLabel" name="Label">
+  <widget class="QLabel" name="LabelSearchKind">
    <property name="geometry">
     <rect>
      <x>50</x>
-     <y>80</y>
+     <y>150</y>
      <width>91</width>
      <height>31</height>
     </rect>
@@ -53,17 +53,17 @@
    <property name="geometry">
     <rect>
      <x>160</x>
-     <y>160</y>
+     <y>230</y>
      <width>281</width>
      <height>171</height>
     </rect>
    </property>
   </widget>
-  <widget class="QLabel" name="label2">
+  <widget class="QLabel" name="LabelSearchContent">
    <property name="geometry">
     <rect>
      <x>50</x>
-     <y>170</y>
+     <y>240</y>
      <width>91</width>
      <height>16</height>
     </rect>
@@ -76,7 +76,7 @@
    <property name="geometry">
     <rect>
      <x>50</x>
-     <y>220</y>
+     <y>290</y>
      <width>93</width>
      <height>28</height>
     </rect>
@@ -85,17 +85,56 @@
     <string>清空查询框</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_4">
+  <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>700</x>
-     <y>300</y>
+     <x>710</x>
+     <y>370</y>
      <width>171</width>
      <height>111</height>
     </rect>
    </property>
    <property name="text">
     <string>未设计</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="ButtonApplyFor">
+   <property name="geometry">
+    <rect>
+     <x>690</x>
+     <y>40</y>
+     <width>131</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>申请证书</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="ButtonExit">
+   <property name="geometry">
+    <rect>
+     <x>870</x>
+     <y>40</y>
+     <width>131</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>退出系统</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="ButtonToSearch">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>350</y>
+     <width>91</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>确认查找</string>
    </property>
   </widget>
  </widget>

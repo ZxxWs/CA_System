@@ -51,9 +51,18 @@
     <ClCompile Include="Class_File\UserClass.cpp">
       <Filter>Class Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source_Files\Search.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Header_Files\CA_System.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Header_Files\Search.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Header_Files\ApplyFor.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -75,9 +84,6 @@
     </QtUic>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ApplyFor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Class_File\CertificateClass.h">
       <Filter>Class Files</Filter>
     </ClInclude>

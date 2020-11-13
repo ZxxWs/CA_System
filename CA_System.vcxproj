@@ -100,6 +100,7 @@
     <ClCompile Include="Class_File\SearchClass.cpp" />
     <ClCompile Include="Source_Files\ApplyFor.cpp" />
     <ClCompile Include="Source_Files\CA_System.cpp" />
+    <ClCompile Include="Source_Files\Search.cpp" />
     <QtRcc Include="CA_System.qrc" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -114,10 +115,11 @@
     <QtUic Include="UI_Files\StrangerSearch.ui" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ApplyFor.h" />
     <ClInclude Include="Class_File\CertificateClass.h" />
     <ClInclude Include="Class_File\UserClass.h" />
     <ClInclude Include="Class_File\SearchClass.h" />
+    <QtMoc Include="Header_Files\ApplyFor.h" />
+    <QtMoc Include="Header_Files\Search.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
