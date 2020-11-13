@@ -36,6 +36,9 @@
     <ClCompile Include="Source_Files\CA_System.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ApplyFor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Header_Files\CA_System.h">
@@ -46,5 +49,22 @@
     <QtUic Include="UI_Files\CA_System.ui">
       <Filter>UI_Files</Filter>
     </QtUic>
+    <QtUic Include="UI_Files\ApplyFor.ui">
+      <Filter>UI_Files</Filter>
+    </QtUic>
+    <QtUic Include="UI_Files\Search.ui">
+      <Filter>UI_Files</Filter>
+    </QtUic>
+    <QtUic Include="UI_Files\Delete.ui">
+      <Filter>UI_Files</Filter>
+    </QtUic>
+    <QtUic Include="UI_Files\StrangerSearch.ui">
+      <Filter>UI_Files</Filter>
+    </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ApplyFor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

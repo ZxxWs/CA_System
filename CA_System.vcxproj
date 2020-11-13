@@ -86,6 +86,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ApplyFor.cpp" />
     <ClCompile Include="Source_Files\CA_System.cpp" />
     <QtRcc Include="CA_System.qrc" />
     <ClCompile Include="main.cpp" />
@@ -94,7 +95,14 @@
     <QtMoc Include="Header_Files\CA_System.h" />
   </ItemGroup>
   <ItemGroup>
+    <QtUic Include="UI_Files\ApplyFor.ui" />
     <QtUic Include="UI_Files\CA_System.ui" />
+    <QtUic Include="UI_Files\Delete.ui" />
+    <QtUic Include="UI_Files\Search.ui" />
+    <QtUic Include="UI_Files\StrangerSearch.ui" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ApplyFor.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

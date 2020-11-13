@@ -1,7 +1,6 @@
 #pragma once
 
 #include <QtWidgets/QMainWindow>
-//#include "ui_CA_System.h"
 #include "../x64/Debug/uic/ui_CA_System.h"
 class CA_System : public QMainWindow
 {
