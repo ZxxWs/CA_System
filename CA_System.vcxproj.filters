@@ -42,9 +42,6 @@
     <ClCompile Include="Source_Files\ApplyFor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Class_File\CertificateClass.cpp">
-      <Filter>Class Files</Filter>
-    </ClCompile>
     <ClCompile Include="Class_File\SearchClass.cpp">
       <Filter>Class Files</Filter>
     </ClCompile>
@@ -55,6 +52,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Class_File\CreateKeyPair.cpp">
+      <Filter>Class Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Class_File\CreateCertificate.cpp">
+      <Filter>Class Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Class_File\CertificateTable.cpp">
       <Filter>Class Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -90,9 +93,6 @@
     </QtUic>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Class_File\CertificateClass.h">
-      <Filter>Class Files</Filter>
-    </ClInclude>
     <ClInclude Include="Class_File\SearchClass.h">
       <Filter>Class Files</Filter>
     </ClInclude>
@@ -100,6 +100,12 @@
       <Filter>Class Files</Filter>
     </ClInclude>
     <ClInclude Include="Class_File\CreateKeyPair.h">
+      <Filter>Class Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Class_File\CreateCertificate.h">
+      <Filter>Class Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Class_File\CertificateTable.h">
       <Filter>Class Files</Filter>
     </ClInclude>
   </ItemGroup>

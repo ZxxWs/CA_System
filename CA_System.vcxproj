@@ -95,7 +95,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Class_File\CertificateClass.cpp" />
+    <ClCompile Include="Class_File\CertificateTable.cpp" />
+    <ClCompile Include="Class_File\CreateCertificate.cpp" />
     <ClCompile Include="Class_File\CreateKeyPair.cpp" />
     <ClCompile Include="Class_File\UserClass.cpp" />
     <ClCompile Include="Class_File\SearchClass.cpp" />
@@ -117,7 +118,8 @@
     <QtUic Include="UI_Files\StrangerSearch.ui" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Class_File\CertificateClass.h" />
+    <ClInclude Include="Class_File\CertificateTable.h" />
+    <ClInclude Include="Class_File\CreateCertificate.h" />
     <ClInclude Include="Class_File\CreateKeyPair.h" />
     <ClInclude Include="Class_File\UserClass.h" />
     <ClInclude Include="Class_File\SearchClass.h" />

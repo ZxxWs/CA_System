@@ -12,13 +12,16 @@
 
 using namespace std;
 
-ApplyFor::ApplyFor(UserClass nowUser,QWidget* parent): QMainWindow(parent)
+ApplyFor::ApplyFor(UserClass nowUser,QWidget* parent)
+    : QMainWindow(parent)
 {
 
     ui.setupUi(this);
+
     this->ButtonCreateDoubleKey = ui.ButtonCreateDoubleKey;
     this->ButtonCreateCertificate = ui.ButtonCreateCertificate;
     this->ButtonBackSearch = ui.ButtonBackSearch;
+    this->ButtonSelectSavePublicKeyPath = ui.ButtonSelectSavePublicKeyPath;
     this->ButtonSelectPublicKeyPath = ui.ButtonSelectPublicKeyPath;
     this->LabelUserName = ui.LabelUserName;
     this->LabelCertificate = ui.LabelCertificate;
@@ -28,19 +31,24 @@ ApplyFor::ApplyFor(UserClass nowUser,QWidget* parent): QMainWindow(parent)
     this->TextEditPublicKey = ui.TextEditPublicKey;
     this->TextEditPrivateKey = ui.TextEditPrivateKey;
     this->LineEditSelectPath = ui.LineEditSelectPath;
+    this->ButtonSave = ui.ButtonSave;
+
     this->TextEditCertificate->hide();
     this->LabelCertificate->hide();
     this->LabelPrivate->hide();
     this->ButtonCreateCertificate->hide();
     this->ButtonSave->hide();
     this->LabelPrivate->hide();
+    this->TextEditPrivateKey->hide();
 
 
     connect(ui.ButtonCreateDoubleKey, SIGNAL(clicked()), this, SLOT(ClickCreateDoubleKeyButton()));//将按钮和点击事件绑定
     connect(ui.ButtonCreateCertificate, SIGNAL(clicked()), this, SLOT(ClickCreateCertificateButton()));//将按钮和点击事件绑定
-    connect(ui.ButtonBackSearch, SIGNAL(clicked()), this, SLOT(ClickBackSearchButton()));//将按钮和点击事件绑定
-    connect(ui.ButtonSelectSavePublicKeyPath, SIGNAL(clicked()), this, SLOT(ClickSelectSavePublicKeyPathButton()));//将按钮和点击事件绑定
-    connect(ui.ButtonSelectPublicKeyPath, SIGNAL(clicked()), this, SLOT(ClickSelectPublicKeyPathButton()));//将按钮和点击事件绑定
+    connect(ui.ButtonBackSearch, SIGNAL(clicked()), this, SLOT(ClickBackSearchButton()));
+    connect(ui.ButtonSelectSavePublicKeyPath, SIGNAL(clicked()), this, SLOT(ClickSelectSavePublicKeyPathButton()));
+    connect(ui.ButtonSelectPublicKeyPath, SIGNAL(clicked()), this, SLOT(ClickSelectPublicKeyPathButton()));
+
+    this->LabelUserName->setText(QString::fromStdString("用户： " + this->NowUser.getUserName()));
 
 }
 
@@ -49,6 +57,11 @@ void ApplyFor::ClickCreateDoubleKeyButton() {
     string strPath;
     strPath = this->LineEditSelectPath->displayText().toStdString()+"/";
     CreateKeyPair keyPair = CreateKeyPair(strPath,true);
+
+    this->TextEditPrivateKey->show();
+    this->ButtonCreateCertificate->show();
+    this->LabelPrivate->show();
+    this->ButtonSelectPublicKeyPath->hide();
     this->TextEditPrivateKey->setText(QString::fromStdString(keyPair.PrivateKey));
     this->TextEditPublicKey->setText(QString::fromStdString(keyPair.PublicKey));
     

@@ -43,7 +43,7 @@ void CA_System::ClickLogInButton() {
     //searchWin->show();
 
 
-    ApplyFor* applyForWin = new ApplyFor(LogUser, this);
+    ApplyFor* applyForWin =new ApplyFor(LogUser, this);
     connect(applyForWin, SIGNAL(sendsignal()), this, SLOT(ReShowThis()));//当点击子界面EixtButton，调用主界面的reshow()函数-----未完成
     applyForWin->show();
 

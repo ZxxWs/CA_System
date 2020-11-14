@@ -1,16 +1,18 @@
 #pragma once
 #include <QtWidgets/QMainWindow>
 #include "../x64/Debug/uic/ui_ApplyFor.h"
-#include "../Class_File/UserClass.h"
 #include "qpushbutton.h"
 #include "../Class_File/CreateKeyPair.h"
+#include "../Class_File/CertificateClass.h"
+#include "../Class_File/UserClass.h"
 
 class ApplyFor : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    ApplyFor(UserClass nowUser,QWidget* parent = Q_NULLPTR);
+
+    ApplyFor(UserClass nowUser, QWidget* parent = Q_NULLPTR);
     QPushButton* ButtonCreateDoubleKey;
     QPushButton* ButtonCreateCertificate;
     QPushButton* ButtonSave;   //加不加再说
@@ -28,8 +30,6 @@ public:
 
 public slots:
     void ClickCreateDoubleKeyButton();
-    //ApplyFor(UserClass nowUser, QWidget* parent);
-    //按钮点击事件
     void ClickCreateCertificateButton();
     void ClickBackSearchButton();
     void ClickSelectSavePublicKeyPathButton();
@@ -40,5 +40,7 @@ private:
     UserClass NowUser;
     QString OpenPublicKeyPath;
     string ClientPublicKey;
-    CreateKeyPair CAKeyPair;
+    CertificateClass Certificate;
+    //CreateKeyPair CAKeyPair;//用于生成
+    //Cre
 };
