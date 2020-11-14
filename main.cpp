@@ -2,7 +2,10 @@
 #include "Class_File/UserClass.h"
 #include "Header_Files/ApplyFor.h"
 #include <QtWidgets/QApplication>
-
+extern "C"
+{
+#include <openssl/applink.c>
+}
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);

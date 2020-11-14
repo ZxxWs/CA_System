@@ -78,7 +78,7 @@
     <string>生成证书</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="ButtonSave">
+  <widget class="QPushButton" name="ButtonSaveCertificate">
    <property name="geometry">
     <rect>
      <x>970</x>
@@ -160,7 +160,7 @@
     <string>输入密钥对保存路径</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="ButtonSelectSavePublicKeyPath">
+  <widget class="QPushButton" name="ButtonSelectSaveKeyPairPath">
    <property name="geometry">
     <rect>
      <x>550</x>

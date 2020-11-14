@@ -7,7 +7,7 @@ using namespace std;
 class CreateKeyPair
 {
 public:
-	CreateKeyPair();
+	//CreateKeyPair();
 	CreateKeyPair(string filePath,bool createFile);
 	string PublicKey;
 	string PrivateKey;

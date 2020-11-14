@@ -6,10 +6,10 @@
 #include "CreateKeyPair.h"
 #include <string>
 #include <fstream>
-extern "C"
-{
-#include <openssl/applink.c>
-}
+//extern "C"
+//{
+//#include <openssl/applink.c>
+//}
 using namespace std;
 /*************************************************************************************
  *                         RSA密钥生成函数
@@ -19,11 +19,11 @@ using namespace std;
  *  2.----BEGIN PUBLIC KEY----格式的公钥pem文件才可以用
  **************************************************************************************/
 
-CreateKeyPair::CreateKeyPair() {
-    this->isSucceed = false;
-    this->PublicKey = "";
-    this->PrivateKey = "";
-}
+//CreateKeyPair::CreateKeyPair() {
+//    this->isSucceed = false;
+//    this->PublicKey = "";
+//    this->PrivateKey = "";
+//}
 
 CreateKeyPair::CreateKeyPair(string filePath, bool createFile=true){//tag==0时，生成文件
 

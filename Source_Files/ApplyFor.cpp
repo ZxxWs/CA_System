@@ -5,6 +5,7 @@
 #include "../Class_File/UserClass.h"
 #include "../Class_File/SearchClass.h"
 #include "../Class_File/CreateKeyPair.h"
+#include "../Class_File/CreateCertificate.h"
 #include <QFileDialog>
 #include <iostream>
 #include <string>
@@ -21,7 +22,8 @@ ApplyFor::ApplyFor(UserClass nowUser,QWidget* parent)
     this->ButtonCreateDoubleKey = ui.ButtonCreateDoubleKey;
     this->ButtonCreateCertificate = ui.ButtonCreateCertificate;
     this->ButtonBackSearch = ui.ButtonBackSearch;
-    this->ButtonSelectSavePublicKeyPath = ui.ButtonSelectSavePublicKeyPath;
+    this->ButtonSelectSaveKeyPairPath = ui.ButtonSelectSaveKeyPairPath;
+    this->ButtonSaveCertificate = ui.ButtonSaveCertificate;
     this->ButtonSelectPublicKeyPath = ui.ButtonSelectPublicKeyPath;
     this->LabelUserName = ui.LabelUserName;
     this->LabelCertificate = ui.LabelCertificate;
@@ -31,13 +33,11 @@ ApplyFor::ApplyFor(UserClass nowUser,QWidget* parent)
     this->TextEditPublicKey = ui.TextEditPublicKey;
     this->TextEditPrivateKey = ui.TextEditPrivateKey;
     this->LineEditSelectPath = ui.LineEditSelectPath;
-    this->ButtonSave = ui.ButtonSave;
-
     this->TextEditCertificate->hide();
     this->LabelCertificate->hide();
     this->LabelPrivate->hide();
-    this->ButtonCreateCertificate->hide();
-    this->ButtonSave->hide();
+    //this->ButtonCreateCertificate->hide();//方便测试所以注释掉
+    this->ButtonSelectPublicKeyPath->hide();
     this->LabelPrivate->hide();
     this->TextEditPrivateKey->hide();
 
@@ -45,10 +45,12 @@ ApplyFor::ApplyFor(UserClass nowUser,QWidget* parent)
     connect(ui.ButtonCreateDoubleKey, SIGNAL(clicked()), this, SLOT(ClickCreateDoubleKeyButton()));//将按钮和点击事件绑定
     connect(ui.ButtonCreateCertificate, SIGNAL(clicked()), this, SLOT(ClickCreateCertificateButton()));//将按钮和点击事件绑定
     connect(ui.ButtonBackSearch, SIGNAL(clicked()), this, SLOT(ClickBackSearchButton()));
-    connect(ui.ButtonSelectSavePublicKeyPath, SIGNAL(clicked()), this, SLOT(ClickSelectSavePublicKeyPathButton()));
+    connect(ui.ButtonSelectSaveKeyPairPath, SIGNAL(clicked()), this, SLOT(ClickSelectSaveKeyPairPathButton()));
     connect(ui.ButtonSelectPublicKeyPath, SIGNAL(clicked()), this, SLOT(ClickSelectPublicKeyPathButton()));
+    connect(ui.ButtonSaveCertificate, SIGNAL(clicked()), this, SLOT(ClickSaveCertificateButton()));
 
     this->LabelUserName->setText(QString::fromStdString("用户： " + this->NowUser.getUserName()));
+    this->certificateTable.ClientName = nowUser.getUserName();
 
 }
 
@@ -70,7 +72,23 @@ void ApplyFor::ClickCreateDoubleKeyButton() {
 void ApplyFor::ClickCreateCertificateButton() {
 
 
+    //此处生成的是CA的密钥对
+    CreateKeyPair CAKeyPair = CreateKeyPair(".",false);
+    this->certificateTable.CAPublicKey = CAKeyPair.PublicKey;
+    this->certificateTable.CAPrivateKey = CAKeyPair.PrivateKey;
+
+    CreateCertificate Cert = CreateCertificate();
+    Cert.Create();
+
+    this->x509 = Cert.getCertX509();
+    this->certificateTable = Cert.getCertTable();
+    //this.
+
+
+
+
     this->TextEditCertificate->show();
+    this->ButtonSaveCertificate->show();
 }
 
 void ApplyFor::ClickBackSearchButton() {
@@ -78,7 +96,7 @@ void ApplyFor::ClickBackSearchButton() {
 
 }
 
-void ApplyFor::ClickSelectSavePublicKeyPathButton() {
+void ApplyFor::ClickSelectSaveKeyPairPathButton() {
 
     QString dirPath= QFileDialog::getExistingDirectory(this, "选择目录","", QFileDialog::ShowDirsOnly);
     this->LineEditSelectPath->setText(dirPath);
@@ -125,5 +143,18 @@ void ApplyFor::ClickSelectPublicKeyPathButton() {
 
 }
 
+
+//证书保存按钮（未做验证）
+void ApplyFor::ClickSaveCertificateButton() {
+
+    QString dirPath = QFileDialog::getExistingDirectory(this, "选择目录", "", QFileDialog::ShowDirsOnly);
+    
+    FILE* file;
+    file = fopen((dirPath.toStdString()+"./cert.pem").c_str(), "wb");
+    PEM_write_X509(file,this->x509);
+    fclose(file);
+
+
+}
 
 
