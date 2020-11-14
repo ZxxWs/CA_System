@@ -48,10 +48,10 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Program Files\MySQL\MySQL Server 8.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files\MySQL\MySQL Server 8.0\include;D:\C\OpenSSL-Win64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>C:\Program Files\MySQL\MySQL Server 8.0\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Program Files\MySQL\MySQL Server 8.0\lib;D:\C\OpenSSL-Win64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>libmysql.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -96,6 +96,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Class_File\CertificateClass.cpp" />
+    <ClCompile Include="Class_File\CreateKeyPair.cpp" />
     <ClCompile Include="Class_File\UserClass.cpp" />
     <ClCompile Include="Class_File\SearchClass.cpp" />
     <ClCompile Include="Source_Files\ApplyFor.cpp" />
@@ -112,10 +113,12 @@
     <QtUic Include="UI_Files\CA_System.ui" />
     <QtUic Include="UI_Files\Delete.ui" />
     <QtUic Include="UI_Files\Search.ui" />
+    <QtUic Include="UI_Files\SelectPath.ui" />
     <QtUic Include="UI_Files\StrangerSearch.ui" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Class_File\CertificateClass.h" />
+    <ClInclude Include="Class_File\CreateKeyPair.h" />
     <ClInclude Include="Class_File\UserClass.h" />
     <ClInclude Include="Class_File\SearchClass.h" />
     <QtMoc Include="Header_Files\ApplyFor.h" />

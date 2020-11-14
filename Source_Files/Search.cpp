@@ -9,7 +9,6 @@
 
 using namespace std;
 
-UserClass NowUser;
 
 Search::Search(UserClass nowUser,QWidget* parent)
     : QMainWindow(parent)
@@ -23,8 +22,8 @@ Search::Search(UserClass nowUser,QWidget* parent)
     this->ComboBoxSearchKind = ui.ComboBoxSearchKind;
     this->TextEditSearchContent = ui.TextEditSearchContent;
     this->lab = ui.label;   //用于测试的label
+    this->NowUser = nowUser;
 
-    NowUser = nowUser;
     this->LabelUserName->setText(QString::fromStdString("用户：" + NowUser.getUserName()));
 
     QStringList str;

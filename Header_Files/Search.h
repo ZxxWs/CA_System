@@ -17,8 +17,7 @@ public:
     QLabel* LabelUserName;
     QComboBox* ComboBoxSearchKind;
     QTextEdit* TextEditSearchContent;
-
-    QLabel* lab;
+    QLabel* lab;//用于测试的lab
 
 public slots:
     void ClickSearchButton();//按钮点击事件
@@ -28,4 +27,5 @@ public slots:
 
 private:
     Ui::Serach ui;
+    UserClass NowUser;
 };

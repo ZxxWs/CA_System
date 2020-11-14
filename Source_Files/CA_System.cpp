@@ -1,10 +1,12 @@
 #pragma execution_character_set("UTF-8")//用于qt的编码，如果没有，界面会有中文乱码
 #include "../Header_Files/CA_System.h"
+#include "../Header_Files/ApplyFor.h"
 #include "../Header_Files/Search.h"
 #include "qpushbutton.h"
 #include <QtWidgets/QMainWindow>
 #include "../Class_File/UserClass.h"
 #include "../Class_File/SearchClass.h"
+#include "../Class_File/CreateKeyPair.h"
 
 using namespace std;
 
@@ -36,7 +38,15 @@ void CA_System::ClickLogInButton() {
 
     //如果登录成功，跳转Search界面:0普通用户，1游客，2管理员
     this->hide();
-    Search* searchWin = new Search(LogUser,this);
-    connect(searchWin, SIGNAL(sendsignal()), this, SLOT(ReShowThis()));//当点击子界面EixtButton，调用主界面的reshow()函数-----未完成
-    searchWin->show();
+    //Search* searchWin = new Search(LogUser, this);
+    //connect(searchWin, SIGNAL(sendsignal()), this, SLOT(ReShowThis()));//当点击子界面EixtButton，调用主界面的reshow()函数-----未完成
+    //searchWin->show();
+
+
+    ApplyFor* applyForWin = new ApplyFor(LogUser, this);
+    connect(applyForWin, SIGNAL(sendsignal()), this, SLOT(ReShowThis()));//当点击子界面EixtButton，调用主界面的reshow()函数-----未完成
+    applyForWin->show();
+
+    //CreateKeyPair c = CreateKeyPair();
+
 }

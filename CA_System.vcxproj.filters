@@ -54,6 +54,9 @@
     <ClCompile Include="Source_Files\Search.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Class_File\CreateKeyPair.cpp">
+      <Filter>Class Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Header_Files\CA_System.h">
@@ -82,6 +85,9 @@
     <QtUic Include="UI_Files\StrangerSearch.ui">
       <Filter>UI_Files</Filter>
     </QtUic>
+    <QtUic Include="UI_Files\SelectPath.ui">
+      <Filter>UI_Files</Filter>
+    </QtUic>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Class_File\CertificateClass.h">
@@ -91,6 +97,9 @@
       <Filter>Class Files</Filter>
     </ClInclude>
     <ClInclude Include="Class_File\UserClass.h">
+      <Filter>Class Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Class_File\CreateKeyPair.h">
       <Filter>Class Files</Filter>
     </ClInclude>
   </ItemGroup>
