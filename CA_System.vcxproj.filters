@@ -88,9 +88,6 @@
     <QtUic Include="UI_Files\StrangerSearch.ui">
       <Filter>UI_Files</Filter>
     </QtUic>
-    <QtUic Include="UI_Files\SelectPath.ui">
-      <Filter>UI_Files</Filter>
-    </QtUic>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Class_File\SearchClass.h">

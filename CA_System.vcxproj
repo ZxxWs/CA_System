@@ -114,7 +114,6 @@
     <QtUic Include="UI_Files\CA_System.ui" />
     <QtUic Include="UI_Files\Delete.ui" />
     <QtUic Include="UI_Files\Search.ui" />
-    <QtUic Include="UI_Files\SelectPath.ui" />
     <QtUic Include="UI_Files\StrangerSearch.ui" />
   </ItemGroup>
   <ItemGroup>

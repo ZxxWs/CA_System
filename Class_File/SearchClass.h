@@ -5,6 +5,7 @@
 class SearchClass
 {
 public:
+
 	UserClass UserClassList[100];
 	CertificateTable certificateTable[999];
 	SearchClass();

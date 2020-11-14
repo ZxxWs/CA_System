@@ -1,4 +1,13 @@
 #include "CreateCertificate.h"
+#include "SearchClass.h"
+#include <random>
+#include <strstream>
+#include <sstream>
+#include <string>
+using namespace std;
+
+
+long CreateCertID();
 
 //默认构造函数
 CreateCertificate::CreateCertificate() {
@@ -24,10 +33,9 @@ int CreateCertificate::Create(){
 
     //X509* x509;
     this->Certx509 = X509_new();
-    ASN1_INTEGER_set(X509_get_serialNumber(Certx509), 1);//证书编号“1”
-    X509_gmtime_adj(X509_get_notBefore(Certx509), 0);
-    X509_gmtime_adj(X509_get_notAfter(Certx509), 31536000L);
-    //第一行设置证书的notBefore属性设置为当前时间。 （X509_gmtime_adj函数将当前时间加上指定的秒数 - 在这种情况下无）。第二行将证书的notAfter属性设置为从现在开始的365天（60秒 * 60分钟 * 24小时 * 365天）。
+    ASN1_INTEGER_set(X509_get_serialNumber(Certx509),CreateCertID());//证书编号
+    X509_gmtime_adj(X509_get_notBefore(Certx509), 0);//设置证书的notBefore属性设置为当前时间。 （X509_gmtime_adj函数将当前时间加上指定的秒数 - 在这种情况下无）。
+    X509_gmtime_adj(X509_get_notAfter(Certx509), 31536000L);//将证书的notAfter属性设置为从现在开始的365天（60秒 * 60分钟 * 24小时 * 365天）
 
     //现在我们需要用我们产生较早的关键，为我们的证书的公钥：
     X509_set_pubkey(Certx509, pkey);
@@ -74,7 +82,7 @@ int CreateCertificate::Create(){
 
     
 
-
+    return 0;
 }
 
 
@@ -95,3 +103,36 @@ CertificateTable CreateCertificate::getCertTable() {
     //将X509格式转为CertificateTable（未写）
     return this->CertTable;
 }
+
+
+//通过查询数据库来生成一个CertID
+long CreateCertID() {
+
+    string s1, s2;//查询表中的CertID
+    long CertID;
+    do{
+
+        default_random_engine e(time(0));//随机数引擎
+        CertID = e();
+
+        //long转string
+        ostringstream os;
+        os << CertID;
+        string strCertID;
+        istringstream is(os.str());
+        is >> strCertID;
+
+        SearchClass search1 = SearchClass(strCertID, "CertID", 1);
+        SearchClass search2 = SearchClass(strCertID, "CertID", 2);
+        search1.toSearch();
+        search2.toSearch();
+        s1 = search1.certificateTable[0].CertID;
+        s2 = search2.certificateTable[0].CertID;
+        
+
+    } while (s1!=""&&s2!="");
+
+    return CertID;
+    
+}
+

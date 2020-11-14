@@ -32,12 +32,18 @@ CreateKeyPair::CreateKeyPair(string filePath, bool createFile=true){//tag==0æ—¶ï
 
     FILE* Private_key_file;
     FILE* Public_key_file;
+
     fopen_s(&Private_key_file, (filePath + "/prikey.pem").c_str(), "w+");
     fopen_s(&Public_key_file, (filePath + "/pubkey.pem").c_str(), "w+");
+
     PEM_write_RSAPrivateKey(Private_key_file, rsa, NULL, NULL, 0, NULL, NULL);
     PEM_write_RSA_PUBKEY(Public_key_file, rsa);
+
     fclose(Private_key_file);
     fclose(Public_key_file);
+
+    //this->PublicEVP = PEM_read_RSA_PUBKEY()
+
     RSA_free(rsa);
 
     ifstream infile1;
