@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SignIn</class>
+ <widget class="QWidget" name="SignIn">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>760</width>
+    <height>531</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QLabel" name="LabelPass">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>121</y>
+     <width>120</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>请输入注册密码：</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LabelTEL">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>274</y>
+     <width>120</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>请输入注册电话：</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LabelCompany">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>223</y>
+     <width>120</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>请输入注册公司：</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LabelSuerPass">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>172</y>
+     <width>120</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>请确认注册密码：</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LabelMail">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>325</y>
+     <width>120</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>请输入注册邮箱：</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LabelRemark">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>376</y>
+     <width>90</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>请输入备注：</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LabelType">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>70</y>
+     <width>120</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>请输入注册类型：</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="PushButtonSure">
+   <property name="geometry">
+    <rect>
+     <x>490</x>
+     <y>350</y>
+     <width>93</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>确认注册</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LabelMessage">
+   <property name="geometry">
+    <rect>
+     <x>540</x>
+     <y>140</y>
+     <width>131</width>
+     <height>191</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>T</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="ComboBoxType">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>70</y>
+     <width>171</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="PushButtonBack">
+   <property name="geometry">
+    <rect>
+     <x>620</x>
+     <y>350</y>
+     <width>93</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>返回上页</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="LineEditPass">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>120</y>
+     <width>171</width>
+     <height>24</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="LineEditSurePass">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>170</y>
+     <width>171</width>
+     <height>24</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="LineEditCompany">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>219</y>
+     <width>171</width>
+     <height>24</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="LineEditTEL">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>269</y>
+     <width>171</width>
+     <height>24</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="LineEditMail">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>318</y>
+     <width>171</width>
+     <height>24</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="LineEditRemark">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>368</y>
+     <width>171</width>
+     <height>121</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

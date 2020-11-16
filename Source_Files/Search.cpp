@@ -24,7 +24,7 @@ Search::Search(UserClass nowUser,QWidget* parent)
     this->lab = ui.label;   //用于测试的label
     this->NowUser = nowUser;
 
-    this->LabelUserName->setText(QString::fromStdString("用户：" + NowUser.getUserName()));
+    this->LabelUserName->setText(QString::fromStdString("用户：" + NowUser.getUserID()));
 
     QStringList str;
     str << "通过" << "游客" << "管理员";

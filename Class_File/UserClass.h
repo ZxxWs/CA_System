@@ -12,13 +12,23 @@ public:
 	void setUserName(string UserName); 
 	void setUserPassWord(string UserPassWord);
 	void setUserTag(int UserTag);
-	string getUserName();
+	string getUserID();
 	string getUserPassWord();
 	int getUserTag();
 
-private:
-	string UserName;
+
+
+	string UserID;
 	string UserPassWord;
 	int UserTag;
+	string UserTEL;
+	string UserMail;
+	string UserCompany;
+	string UserRemark;
+	int IsCheck;
+
+
+private:
+	
 };
 

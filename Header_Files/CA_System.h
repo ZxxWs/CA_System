@@ -11,16 +11,20 @@ class CA_System : public QMainWindow
 public:
     CA_System(QWidget *parent = Q_NULLPTR);
     QPushButton* ButtonLogIn;
-    QPushButton* ButtonLogUp;
+    QPushButton* ButtonSignIn;
     QLineEdit* LineEditUserName;
     QLineEdit* LineEditUserPassWord;
     QComboBox* ComboBoxUserKind;
 
 public slots:
-    void ClickLogInButton();//按钮点击事件
-    //void ClickAlterPassButton();//按钮点击事件
-    //void ReShowThis();
+    void ClickLogInButton();
+    void ClickSignInButton();
+  
 
+    void ReShowWindow();
+
+signals:
+    void sendsignal();//这个函数用户向主界面通知关闭的消息
 
 
 private:

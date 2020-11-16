@@ -60,6 +60,9 @@
     <ClCompile Include="Class_File\CertificateTable.cpp">
       <Filter>Class Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source_Files\SignIn.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Header_Files\CA_System.h">
@@ -69,6 +72,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Header_Files\ApplyFor.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Header_Files\SignIn.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -86,6 +92,9 @@
       <Filter>UI_Files</Filter>
     </QtUic>
     <QtUic Include="UI_Files\StrangerSearch.ui">
+      <Filter>UI_Files</Filter>
+    </QtUic>
+    <QtUic Include="UI_Files\SignIn.ui">
       <Filter>UI_Files</Filter>
     </QtUic>
   </ItemGroup>

@@ -103,6 +103,7 @@
     <ClCompile Include="Source_Files\ApplyFor.cpp" />
     <ClCompile Include="Source_Files\CA_System.cpp" />
     <ClCompile Include="Source_Files\Search.cpp" />
+    <ClCompile Include="Source_Files\SignIn.cpp" />
     <QtRcc Include="CA_System.qrc" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -113,6 +114,7 @@
     <QtUic Include="UI_Files\ApplyFor.ui" />
     <QtUic Include="UI_Files\CA_System.ui" />
     <QtUic Include="UI_Files\Delete.ui" />
+    <QtUic Include="UI_Files\SignIn.ui" />
     <QtUic Include="UI_Files\Search.ui" />
     <QtUic Include="UI_Files\StrangerSearch.ui" />
   </ItemGroup>
@@ -122,6 +124,7 @@
     <ClInclude Include="Class_File\CreateKeyPair.h" />
     <ClInclude Include="Class_File\UserClass.h" />
     <ClInclude Include="Class_File\SearchClass.h" />
+    <QtMoc Include="Header_Files\SignIn.h" />
     <QtMoc Include="Header_Files\ApplyFor.h" />
     <QtMoc Include="Header_Files\Search.h" />
   </ItemGroup>

@@ -49,8 +49,8 @@ ApplyFor::ApplyFor(UserClass nowUser,QWidget* parent)
     connect(ui.ButtonSelectPublicKeyPath, SIGNAL(clicked()), this, SLOT(ClickSelectPublicKeyPathButton()));
     connect(ui.ButtonSaveCertificate, SIGNAL(clicked()), this, SLOT(ClickSaveCertificateButton()));
 
-    this->LabelUserName->setText(QString::fromStdString("用户： " + this->NowUser.getUserName()));
-    this->certificateTable.ClientName = nowUser.getUserName();
+    this->LabelUserName->setText(QString::fromStdString("用户： " + this->NowUser.getUserID()));
+    this->certificateTable.ClientName = nowUser.getUserID();
 
 }
 

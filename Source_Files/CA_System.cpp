@@ -2,6 +2,7 @@
 #include "../Header_Files/CA_System.h"
 #include "../Header_Files/ApplyFor.h"
 #include "../Header_Files/Search.h"
+#include "../Header_Files/SignIn.h"
 #include "qpushbutton.h"
 #include <QtWidgets/QMainWindow>
 #include "../Class_File/UserClass.h"
@@ -15,7 +16,7 @@ CA_System::CA_System(QWidget *parent)
 {
     ui.setupUi(this);
     this->ButtonLogIn = ui.ButtonLogIn;
-    this->ButtonLogUp = ui.ButtonLogUp;
+    this->ButtonSignIn = ui.ButtonSignIn;
     this->LineEditUserName = ui.LineEditUserName;
     this->LineEditUserPassWord = ui.LineEditUserPassWord;
     this->ComboBoxUserKind = ui.ComboBoxUserKind;
@@ -25,6 +26,7 @@ CA_System::CA_System(QWidget *parent)
     ComboBoxUserKind->insertItems(3,str);//填充下拉菜单
 
     connect(ui.ButtonLogIn, SIGNAL(clicked()), this, SLOT(ClickLogInButton()));//将按钮和点击事件绑定
+    connect(ui.ButtonSignIn, SIGNAL(clicked()), this, SLOT(ClickSignInButton()));
 
 }
 
@@ -48,5 +50,22 @@ void CA_System::ClickLogInButton() {
     applyForWin->show();
 
     //CreateKeyPair c = CreateKeyPair();
+
+}
+
+void CA_System::ClickSignInButton() {
+
+    this->hide();
+    SignIn* signIn = new SignIn(this);
+
+    connect(signIn, SIGNAL(sendsignal()), this, SLOT(ReShowWindow()));//将此界面的ReShowWindow（）与signIn界面的sendsignal绑定
+    signIn->show();
+
+}
+
+
+void CA_System::ReShowWindow() {
+
+    this->show();
 
 }

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>812</width>
-    <height>437</height>
+    <width>808</width>
+    <height>428</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -86,7 +86,7 @@
      <string>用户身份：</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="ButtonLogUp">
+   <widget class="QPushButton" name="ButtonSignIn">
     <property name="geometry">
      <rect>
       <x>480</x>
@@ -96,7 +96,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>登录</string>
+     <string>注册</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="LineEditUserPassWord">
@@ -115,7 +115,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>812</width>
+     <width>808</width>
      <height>26</height>
     </rect>
    </property>

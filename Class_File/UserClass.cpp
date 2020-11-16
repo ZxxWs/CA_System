@@ -2,15 +2,15 @@
 
 UserClass::UserClass(){}
 
-UserClass::UserClass(string UserName, string UserPassWord, int UserTag) {
-	this->UserName = UserName;
+UserClass::UserClass(string UserID, string UserPassWord, int UserTag) {
+	this->UserID = UserID;
 	this->UserPassWord = UserPassWord;
 	this->UserTag = UserTag;
 }
 
-void UserClass::setUserName(string UserName) {
+void UserClass::setUserName(string UserID) {
 
-	this->UserName = UserName;
+	this->UserID = UserID;
 }
 
 void UserClass::setUserPassWord(string UserPassWord) {
@@ -22,8 +22,8 @@ void UserClass::setUserTag(int UserTag){
 	this->UserTag = UserTag;
 }
 
-string UserClass::getUserName(){
-	return this->UserName;
+string UserClass::getUserID(){
+	return this->UserID;
 }
 
 string UserClass::getUserPassWord(){
