@@ -63,6 +63,9 @@
     <ClCompile Include="Source_Files\SignIn.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Class_File\InsertClass.cpp">
+      <Filter>Class Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Header_Files\CA_System.h">
@@ -112,6 +115,9 @@
       <Filter>Class Files</Filter>
     </ClInclude>
     <ClInclude Include="Class_File\CertificateTable.h">
+      <Filter>Class Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Class_File\InsertClass.h">
       <Filter>Class Files</Filter>
     </ClInclude>
   </ItemGroup>

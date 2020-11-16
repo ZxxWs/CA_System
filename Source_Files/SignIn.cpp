@@ -41,8 +41,12 @@ void SignIn::ClickSureButton() {
 
     //执行获取数据代码
     if (getData()) {
+        
 
 
+    }
+    else
+    {
 
     }
 
@@ -66,13 +70,10 @@ void SignIn::closeEvent(QCloseEvent* event) {
 bool SignIn::getData() {
 
     string s1, s2;
-    this->signInUser.UserPassWord = this->LineEditPass->displayText().toStdString();
+
     s1 = this->LineEditSurePass->displayText().toStdString();
 
-    if (s1 != this->signInUser.UserPassWord) {
-        this->LabelMessage->setText("请检查密码设置，确保两次密码输入相同");
-        return 1;
-    }
+    this->signInUser.UserPassWord = this->LineEditPass->displayText().toStdString();
     this->signInUser.UserCompany = this->LineEditCompany->displayText().toStdString();
     this->signInUser.UserTEL = this->LineEditTEL->displayText().toStdString();
     this->signInUser.UserMail = this->LineEditMail->displayText().toStdString();
@@ -85,7 +86,37 @@ bool SignIn::getData() {
     {
         this->signInUser.UserTag = 2;
     }
+    this->signInUser.IsCheck = 0;
 
-    return 0;
+
+    if (s1 != this->signInUser.UserPassWord) {
+        this->LabelMessage->setText("请检查密码设置，确保两次密码输入相同");
+        return false;
+    }
+    else if (this->signInUser.UserPassWord == "")
+    {
+        this->LabelMessage->setText("密码不能为空");
+        return false;
+    }
+    else if (this->signInUser.UserCompany == "")
+    {
+        this->LabelMessage->setText("公司不能为空");
+        return false;
+    }
+    else if (this->signInUser.UserTEL=="")
+    {
+        this->LabelMessage->setText("电话不能为空");
+        return false;
+    }
+    else if (this->signInUser.UserMail == "")
+    {
+        this->LabelMessage->setText("邮箱不能为空");
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+
 }
 

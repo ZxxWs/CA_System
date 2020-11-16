@@ -98,6 +98,7 @@
     <ClCompile Include="Class_File\CertificateTable.cpp" />
     <ClCompile Include="Class_File\CreateCertificate.cpp" />
     <ClCompile Include="Class_File\CreateKeyPair.cpp" />
+    <ClCompile Include="Class_File\InsertClass.cpp" />
     <ClCompile Include="Class_File\UserClass.cpp" />
     <ClCompile Include="Class_File\SearchClass.cpp" />
     <ClCompile Include="Source_Files\ApplyFor.cpp" />
@@ -122,6 +123,7 @@
     <ClInclude Include="Class_File\CertificateTable.h" />
     <ClInclude Include="Class_File\CreateCertificate.h" />
     <ClInclude Include="Class_File\CreateKeyPair.h" />
+    <ClInclude Include="Class_File\InsertClass.h" />
     <ClInclude Include="Class_File\UserClass.h" />
     <ClInclude Include="Class_File\SearchClass.h" />
     <QtMoc Include="Header_Files\SignIn.h" />
