@@ -20,6 +20,7 @@ SignIn::SignIn(QWidget* parent)
     this->LabelMail = ui.LabelMail;
     this->LabelRemark = ui.LabelRemark;
     this->LabelMessage = ui.LabelMessage;
+    this->LineEditName = ui.LineEditName;
     this->LineEditPass = ui.LineEditPass;
     this->LineEditSurePass = ui.LineEditSurePass;
     this->LineEditCompany = ui.LineEditCompany;
@@ -73,6 +74,7 @@ bool SignIn::getData() {
 
     s1 = this->LineEditSurePass->displayText().toStdString();
 
+    this->signInUser.UserName = this->LineEditName->displayText().toStdString();
     this->signInUser.UserPassWord = this->LineEditPass->displayText().toStdString();
     this->signInUser.UserCompany = this->LineEditCompany->displayText().toStdString();
     this->signInUser.UserTEL = this->LineEditTEL->displayText().toStdString();

@@ -25,6 +25,7 @@ public:
     QLabel* LabelMail;
     QLabel* LabelMessage;
     QLabel* LabelRemark;
+    QLineEdit* LineEditName;
     QLineEdit* LineEditPass;
     QLineEdit* LineEditSurePass;
     QLineEdit* LineEditCompany;

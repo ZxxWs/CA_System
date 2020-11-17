@@ -36,7 +36,7 @@ void CA_System::ClickLogInButton() {
     SearchClass s=SearchClass("123","username",0);
     int a=s.toSearch();
 
-    LineEditUserName->setText(QString::fromStdString(s.UserClassList[0].getUserPassWord()));
+    LineEditUserName->setText(QString::fromStdString(s.UserClassList[0].UserPassWord));
 
     //如果登录成功，跳转Search界面:0普通用户，1游客，2管理员
     this->hide();

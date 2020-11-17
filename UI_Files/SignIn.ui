@@ -213,6 +213,29 @@
     </rect>
    </property>
   </widget>
+  <widget class="QLabel" name="LabelName">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>20</y>
+     <width>120</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>请输入注册名称：</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="LineEditName">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>20</y>
+     <width>171</width>
+     <height>24</height>
+    </rect>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

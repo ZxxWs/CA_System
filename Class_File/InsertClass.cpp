@@ -1,4 +1,6 @@
 #include "InsertClass.h"
+#include "../Class_File/SearchClass.h"
+#include <string>
 //
 //MYSQL* mysql = new MYSQL; //mysql连接  
 //MYSQL_RES* res; //这个结构代表返回行的一个查询结果集  
@@ -6,27 +8,52 @@
 //char query[5000]; //查询语句
 
 
-MYSQL* AddMysql = new MYSQL; //mysql连接  
-MYSQL_RES* AddRes; //这个结构代表返回行的一个查询结果集  
-MYSQL_ROW AddColumn; //一个行数据的类型安全(type-safe)的表示，表示数据行的列  
-char AddQuery[150]; //查询语句
-int AddTag;//用这个Tag区分是添加班级还是添加学生(0:班级，1：学生）
-string StringTag;//用于记录添加过程的问题
-string AddGradeList[9999];//班级列表
-int AddGradeListLen = 0;
 
+using namespace std;
 
-bool ConnectDatabase();
-
-
-InsertClass::InsertClass(UserClass insertUser) {
+//如果tag=0,则是新增，需要检查重复名
+InsertClass::InsertClass(UserClass insertUser,int tag) {
 	this->tips = "false";
 	if (ConnectDatabase()) {
 
 
 
+		if (tag == 0) {
+			SearchClass search = SearchClass(insertUser.UserName, "UserName", 1);
+			if (search.UserClassList[0].UserName != insertUser.UserName) {
 
 
+
+				string str = "insert into usertabl  (UserName,UserPassWord,UserTag,UserTEL,UserCompany,UserRemark) values ('" + insertUser.UserName + "','" + insertUser.UserPassWord + "','" + to_string(insertUser.UserTag) + "','" + insertUser.UserTEL + "','" + insertUser.UserCompany + "','" + insertUser.UserRemark + "','" +insertUser.UserRemark  + "')";
+
+////	sprintf_s(AddQuery, &str[0]);
+////	if (mysql_query(AddMysql, AddQuery))        //执行SQL语句  
+////	{
+////		return false;
+////	}
+////	else
+////	{
+////		return true;
+////	}
+
+
+
+
+
+
+
+
+			}
+			else
+			{
+				this->tips = "用户名重复";
+			}
+
+		}
+		else
+		{
+
+		}
 
 	}
 	else
@@ -54,23 +81,23 @@ InsertClass::InsertClass(CertificateTable insertCertificate, int tag) {
 
 
 
-//插入学生信息
-bool InsertStudent(string num, string name, string grade, string remark) {
-
-	string str = "insert into grade" + grade + " (Snum,Sname,Sgrade,Sremark) values ('" + num + "','" + name + "','" + grade + "','" + remark + "')";
-	sprintf_s(AddQuery, &str[0]);
-	if (mysql_query(AddMysql, AddQuery))        //执行SQL语句  
-	{
-		return false;
-	}
-	else
-	{
-		return true;
-	}
-}
+//////插入学生信息
+////bool InsertStudent(string num, string name, string grade, string remark) {
+////
+////	string str = "insert into grade" + grade + " (Snum,Sname,Sgrade,Sremark) values ('" + num + "','" + name + "','" + grade + "','" + remark + "')";
+////	sprintf_s(AddQuery, &str[0]);
+////	if (mysql_query(AddMysql, AddQuery))        //执行SQL语句  
+////	{
+////		return false;
+////	}
+////	else
+////	{
+////		return true;
+////	}
+////}
 
 //连接数据库函数
-bool ConnectDatabase() {
+bool  InsertClass::ConnectDatabase() {
 	//初始化mysql  
 	mysql_init(AddMysql);
 	//返回false则连接失败，返回true则连接成功  

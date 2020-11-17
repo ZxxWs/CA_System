@@ -1,20 +1,9 @@
+
 #include "SearchClass.h"
-#pragma comment(lib,"libmysql.lib")
-#pragma comment(lib,"wsock32.lib")
-#include<iostream>
-#include<Windows.h>
-#include<WinSock.h>
-#include<mysql.h>
+
+#include <string>
+
 using namespace std;
-
-MYSQL* mysql = new MYSQL; //mysql连接  
-MYSQL_RES* res; //这个结构代表返回行的一个查询结果集  
-MYSQL_ROW column; //一个行数据的类型安全(type-safe)的表示，表示数据行的列  
-char query[5000]; //查询语句
-string SearchKind[3] = { "Usertable", "certificatetable","Diecertificatetable"};
-
-//下面函数的声明
-bool ConnectDatabase();
 
 SearchClass::SearchClass(){}
 
@@ -49,9 +38,14 @@ int SearchClass::toSearch() {	//返回0：失败,返回1：查询失败,返回5：查询成功
 		if (this->SearchTag == 0) {//查询Login表
 			
 			for (int i = 0; column = mysql_fetch_row(res); i++) {
-				this->UserClassList[i].setUserName(column[0]);
-				this->UserClassList[i].setUserPassWord(column[1]);
-				this->UserClassList[i].setUserTag(int(column[2]));
+				this->UserClassList[i].UserName=column[0];
+				this->UserClassList[i].UserPassWord = column[1];
+				this->UserClassList[i].UserTag = stoi(column[2]);
+				this->UserClassList[i].UserTEL = column[3];
+				this->UserClassList[i].UserRemark = column[4];
+				this->UserClassList[i].UserCompany = column[5];
+				this->UserClassList[i].UserRemark = column[6];
+				this->UserClassList[i].IsCheck = stoi(column[7]);
 			}
 			return 5;
 		}
@@ -74,7 +68,7 @@ int SearchClass::toSearch() {	//返回0：失败,返回1：查询失败,返回5：查询成功
 
 
 //连接数据库函数
-bool ConnectDatabase() {
+bool SearchClass::ConnectDatabase() {
 	//初始化mysql  
 	mysql_init(mysql);
 	//返回false则连接失败，返回true则连接成功  

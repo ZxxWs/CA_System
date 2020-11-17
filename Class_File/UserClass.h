@@ -9,16 +9,16 @@ class UserClass
 public:
 	UserClass();
 	UserClass(string UserName,string UserPassWord,int UserTag);
-	void setUserName(string UserName); 
-	void setUserPassWord(string UserPassWord);
-	void setUserTag(int UserTag);
-	string getUserID();
-	string getUserPassWord();
-	int getUserTag();
+	//void setUserName(string UserName); 
+	//void setUserPassWord(string UserPassWord);
+	//void setUserTag(int UserTag);
+	//string getUserName();
+	//string getUserPassWord();
+	//int getUserTag();
 
 
 
-	string UserID;
+	string UserName;
 	string UserPassWord;
 	int UserTag;
 	string UserTEL;
