@@ -1,11 +1,7 @@
 #include "InsertClass.h"
 #include "../Class_File/SearchClass.h"
 #include <string>
-//
-//MYSQL* mysql = new MYSQL; //mysql连接  
-//MYSQL_RES* res; //这个结构代表返回行的一个查询结果集  
-//MYSQL_ROW column; //一个行数据的类型安全(type-safe)的表示，表示数据行的列  
-//char query[5000]; //查询语句
+#pragma execution_character_set("UTF-8")//用于qt的编码，如果没有，界面会有中文乱码
 
 
 
@@ -13,10 +9,10 @@ using namespace std;
 
 //如果tag=0,则是新增，需要检查重复名
 InsertClass::InsertClass(UserClass insertUser,int tag) {
+
 	this->tips = "false";
+
 	if (ConnectDatabase()) {
-
-
 
 		if (tag == 0) {
 			SearchClass search = SearchClass(insertUser.UserName, "UserName", 1);
@@ -24,25 +20,21 @@ InsertClass::InsertClass(UserClass insertUser,int tag) {
 
 
 
-				string str = "insert into usertabl  (UserName,UserPassWord,UserTag,UserTEL,UserCompany,UserRemark) values ('" + insertUser.UserName + "','" + insertUser.UserPassWord + "','" + to_string(insertUser.UserTag) + "','" + insertUser.UserTEL + "','" + insertUser.UserCompany + "','" + insertUser.UserRemark + "','" +insertUser.UserRemark  + "')";
+				string str = "insert into usertable  (UserName,UserPassWord,UserTag,UserTEL,UserCompany,UserRemark) values ('" + insertUser.UserName + "','" + insertUser.UserPassWord + "','" + to_string(insertUser.UserTag) + "','" + insertUser.UserTEL + "','" + insertUser.UserCompany + "','" + insertUser.UserRemark + "')";
 
-////	sprintf_s(AddQuery, &str[0]);
-////	if (mysql_query(AddMysql, AddQuery))        //执行SQL语句  
-////	{
-////		return false;
-////	}
-////	else
-////	{
-////		return true;
-////	}
+				this->tips = str;
 
-
-
-
-
-
-
-
+				sprintf_s(AddQuery, &str[0]);
+				if (mysql_query(AddMysql, AddQuery))        //执行SQL语句  
+				{
+					this->tips = "注册失败,请检查输入内容。";
+					return;
+				}
+				else
+				{
+					this->tips = "注册成功";
+					return;
+				}
 			}
 			else
 			{

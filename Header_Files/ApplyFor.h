@@ -42,6 +42,9 @@ public slots:
     void ClickSelectPublicKeyPathButton();
     void ClickSaveCertificateButton();
 
+signals:
+    void sendsignalApplyFor();//这个函数用户向主界面通知关闭的消息
+
 private:
     Ui::ApplyFor ui;
     UserClass NowUser;
@@ -53,5 +56,8 @@ private:
     CertificateTable certificateTable;
     X509* x509;
     //CreateKeyPair CAKeyPair;//用于生成
-    //Cre
+
+
+protected:
+    void closeEvent(QCloseEvent* event);//关闭界面的逻辑，主要是给上个界面来传递参数
 };

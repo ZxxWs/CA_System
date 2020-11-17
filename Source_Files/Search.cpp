@@ -45,13 +45,14 @@ void Search::ClickSearchButton() {
 
 }
 
-void Search::ClickEixtButton() {
-
-}
 
 
 void Search::ClickApplyForButton() {
 
+    this->hide();
+    ApplyFor* applyForWin = new ApplyFor(this->NowUser);
+    connect(applyForWin, SIGNAL(sendsignalApplyFor()), this, SLOT(ReShowWindow()));//当点击子界面EixtButton，调用主界面的reshow()函数
+    applyForWin->show();
 
 }
 
@@ -59,3 +60,25 @@ void Search::ClickApplyForButton() {
 void Search::ClickClearnTextButton() {
     this->TextEditSearchContent->setText("");
 }
+
+
+void Search::ReShowWindow() {
+
+    this->show();
+}
+
+void Search::ClickEixtButton() {
+
+    emit sendsignal();//给父界面传递被关闭信息
+    this->close();
+}
+
+
+void Search::closeEvent(QCloseEvent* event) {
+
+    emit sendsignal(); // 给父界面传递被关闭信息
+
+}
+
+
+

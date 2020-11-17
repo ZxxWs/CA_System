@@ -17,14 +17,14 @@ public:
     QPushButton* PushButtonSure;
     QPushButton* PushButtonBack;
     QComboBox* ComboBoxType;
-    QLabel* LabelType;
+  /*  QLabel* LabelType;
     QLabel* LabelPass;
     QLabel* LabelSurePass;
     QLabel* LabelCompany;
     QLabel* LabelTEL;
     QLabel* LabelMail;
+    QLabel* LabelRemark;*/
     QLabel* LabelMessage;
-    QLabel* LabelRemark;
     QLineEdit* LineEditName;
     QLineEdit* LineEditPass;
     QLineEdit* LineEditSurePass;

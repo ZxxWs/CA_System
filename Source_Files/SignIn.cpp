@@ -1,5 +1,6 @@
 #pragma execution_character_set("UTF-8")//用于qt的编码，如果没有，界面会有中文乱码
 #include "../Header_Files/SignIn.h"
+#include "../Class_File/InsertClass.h"
 #include "qpushbutton.h"
 #include "qstring.h"
 
@@ -12,13 +13,13 @@ SignIn::SignIn(QWidget* parent)
     this->PushButtonSure = ui.PushButtonSure;
     this->PushButtonBack = ui.PushButtonBack;
     this->ComboBoxType = ui.ComboBoxType;
-    this->LabelType = ui.LabelType;
-    this->LabelPass = ui.LabelPass;
-    this->LabelSurePass = ui.LabelSuerPass;
-    this->LabelCompany = ui.LabelCompany;
-    this->LabelTEL = ui.LabelTEL;
-    this->LabelMail = ui.LabelMail;
-    this->LabelRemark = ui.LabelRemark;
+    //this->LabelType = ui.LabelType;
+    //this->LabelPass = ui.LabelPass;
+    //this->LabelSurePass = ui.LabelSuerPass;
+    //this->LabelCompany = ui.LabelCompany;
+    //this->LabelTEL = ui.LabelTEL;
+    //this->LabelMail = ui.LabelMail;
+    //this->LabelRemark = ui.LabelRemark;
     this->LabelMessage = ui.LabelMessage;
     this->LineEditName = ui.LineEditName;
     this->LineEditPass = ui.LineEditPass;
@@ -43,8 +44,8 @@ void SignIn::ClickSureButton() {
     //执行获取数据代码
     if (getData()) {
         
-
-
+        InsertClass insert = InsertClass(this->signInUser, 0);
+        this->LabelMessage ->setText(QString::fromStdString(insert.tips));
     }
     else
     {

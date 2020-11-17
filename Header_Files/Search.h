@@ -24,8 +24,16 @@ public slots:
     void ClickEixtButton();
     void ClickClearnTextButton();
     void ClickApplyForButton();
+    void ReShowWindow();
 
 private:
     Ui::Serach ui;
     UserClass NowUser;
+
+
+signals:
+    void sendsignal();//这个函数用户向主界面通知关闭的消息
+
+protected:
+    void closeEvent(QCloseEvent* event);//关闭界面的逻辑，主要是给上个界面来传递参数
 };

@@ -176,8 +176,8 @@
   <widget class="QPushButton" name="ButtonSelectPublicKeyPath">
    <property name="geometry">
     <rect>
-     <x>230</x>
-     <y>460</y>
+     <x>120</x>
+     <y>270</y>
      <width>81</width>
      <height>41</height>
     </rect>

@@ -3,6 +3,7 @@
 #include <QtWidgets/QMainWindow>
 #include "../x64/Debug/uic/ui_CA_System.h"
 #include "qpushbutton.h"
+#include "../Class_File/UserClass.h"
 
 class CA_System : public QMainWindow
 {
@@ -10,6 +11,7 @@ class CA_System : public QMainWindow
 
 public:
     CA_System(QWidget *parent = Q_NULLPTR);
+    QLabel* LabelTips;
     QPushButton* ButtonLogIn;
     QPushButton* ButtonSignIn;
     QLineEdit* LineEditUserName;
@@ -19,8 +21,6 @@ public:
 public slots:
     void ClickLogInButton();
     void ClickSignInButton();
-  
-
     void ReShowWindow();
 
 signals:
@@ -29,4 +29,6 @@ signals:
 
 private:
     Ui::CA_SystemClass ui;
+    int getInputDate();
+    UserClass NowUser;
 };

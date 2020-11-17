@@ -15,6 +15,7 @@ CA_System::CA_System(QWidget *parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
+    this->LabelTips = ui.LabelTips;
     this->ButtonLogIn = ui.ButtonLogIn;
     this->ButtonSignIn = ui.ButtonSignIn;
     this->LineEditUserName = ui.LineEditUserName;
@@ -32,22 +33,44 @@ CA_System::CA_System(QWidget *parent)
 
 void CA_System::ClickLogInButton() {
 
-    UserClass LogUser=UserClass();
-    SearchClass s=SearchClass("123","username",0);
-    int a=s.toSearch();
 
-    LineEditUserName->setText(QString::fromStdString(s.UserClassList[0].UserPassWord));
-
-    //如果登录成功，跳转Search界面:0普通用户，1游客，2管理员
-    this->hide();
-    //Search* searchWin = new Search(LogUser, this);
-    //connect(searchWin, SIGNAL(sendsignal()), this, SLOT(ReShowThis()));//当点击子界面EixtButton，调用主界面的reshow()函数-----未完成
-    //searchWin->show();
+    int t = getInputDate();
+    if ( t== 0) {
 
 
-    ApplyFor* applyForWin =new ApplyFor(LogUser, this);
-    connect(applyForWin, SIGNAL(sendsignal()), this, SLOT(ReShowThis()));//当点击子界面EixtButton，调用主界面的reshow()函数-----未完成
-    applyForWin->show();
+        UserClass LogUser = UserClass();
+        SearchClass s = SearchClass(NowUser.UserName, "username", 0);
+
+        if (NowUser.UserPassWord == s.UserClassList[0].UserPassWord) {
+
+            NowUser = s.UserClassList[0];
+            Search* searchWin = new Search(NowUser, this);
+            connect(searchWin, SIGNAL(sendsignal()), this, SLOT(ReShowWindow()));//当点击子界面EixtButton，调用主界面的reshow()函数-----未完成
+            searchWin->show();
+            //如果登录成功，跳转Search界面:0普通用户，1游客，2管理员
+            this->hide();
+
+        }
+        else
+        {
+            this->LabelTips->setText("用户名或密码错误，请检查输入");
+        }
+
+
+    }
+    else if(t==2)//游客登录
+    {
+        Search* searchWin = new Search(NowUser, this);
+        connect(searchWin, SIGNAL(sendsignal()), this, SLOT(ReShowWindow()));//当点击子界面EixtButton，调用主界面的reshow()函数-----未完成
+        searchWin->show();
+        //如果登录成功，跳转Search界面:0普通用户，1游客，2管理员
+        this->hide();
+    }
+   
+
+    //ApplyFor* applyForWin =new ApplyFor(LogUser, this);
+    //connect(applyForWin, SIGNAL(sendsignal()), this, SLOT(ReShowThis()));//当点击子界面EixtButton，调用主界面的reshow()函数-----未完成
+    //applyForWin->show();
 
     //CreateKeyPair c = CreateKeyPair();
 
@@ -65,7 +88,27 @@ void CA_System::ClickSignInButton() {
 
 
 void CA_System::ReShowWindow() {
-
     this->show();
+}
+
+int CA_System::getInputDate() {
+
+    this->NowUser.UserName = this->LineEditUserName->displayText().toStdString();
+    this->NowUser.UserPassWord = this->LineEditUserPassWord->displayText().toStdString();
+    this->NowUser.UserTag= this->ComboBoxUserKind->currentIndex();
+
+    if (this->NowUser.UserTag == 1) {
+        this->NowUser.UserName = "游客";
+        this->NowUser.UserPassWord = "";
+        return 2;
+    }
+    else if (this->NowUser.UserName == "" || this->NowUser.UserPassWord == "") {
+        this->LabelTips->setText("用户名或密码不能为空");
+        return 1;
+    }
+
+    return 0;
+
 
 }
+

@@ -37,7 +37,7 @@ ApplyFor::ApplyFor(UserClass nowUser,QWidget* parent)
     this->LabelCertificate->hide();
     this->LabelPrivate->hide();
     //this->ButtonCreateCertificate->hide();//方便测试所以注释掉
-    this->ButtonSelectPublicKeyPath->hide();
+    //this->ButtonSelectPublicKeyPath->hide();
     this->LabelPrivate->hide();
     this->TextEditPrivateKey->hide();
 
@@ -63,7 +63,7 @@ void ApplyFor::ClickCreateDoubleKeyButton() {
     this->TextEditPrivateKey->show();
     this->ButtonCreateCertificate->show();
     this->LabelPrivate->show();
-    this->ButtonSelectPublicKeyPath->hide();
+    //this->ButtonSelectPublicKeyPath->hide();
     this->TextEditPrivateKey->setText(QString::fromStdString(keyPair.PrivateKey));
     this->TextEditPublicKey->setText(QString::fromStdString(keyPair.PublicKey));
     
@@ -84,17 +84,23 @@ void ApplyFor::ClickCreateCertificateButton() {
     this->certificateTable = Cert.getCertTable();
     //this.
 
-
-
-
     this->TextEditCertificate->show();
     this->ButtonSaveCertificate->show();
 }
 
 void ApplyFor::ClickBackSearchButton() {
 
+    emit sendsignalApplyFor();//给父界面传递被关闭信息
+    this->close();
 
 }
+
+void ApplyFor::closeEvent(QCloseEvent* event) {
+
+    emit sendsignalApplyFor(); // 给父界面传递被关闭信息
+
+}
+
 
 void ApplyFor::ClickSelectSaveKeyPairPathButton() {
 
