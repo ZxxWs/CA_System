@@ -42,7 +42,7 @@ CreateKeyPair::CreateKeyPair(string filePath, bool createFile=true){//tag==0æ—¶ï
     fclose(Private_key_file);
     fclose(Public_key_file);
 
-    //this->PublicEVP = PEM_read_RSA_PUBKEY()
+
 
     RSA_free(rsa);
 

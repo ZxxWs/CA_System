@@ -11,6 +11,7 @@
 #include <string>
 #include <fstream>
 
+
 using namespace std;
 
 ApplyFor::ApplyFor(UserClass nowUser,QWidget* parent)
@@ -82,7 +83,7 @@ void ApplyFor::ClickCreateCertificateButton() {
 
     this->x509 = Cert.getCertX509();
     this->certificateTable = Cert.getCertTable();
-    //this.
+    //this.cert
 
     this->TextEditCertificate->show();
     this->ButtonSaveCertificate->show();
@@ -98,7 +99,7 @@ void ApplyFor::ClickBackSearchButton() {
 void ApplyFor::closeEvent(QCloseEvent* event) {
 
     emit sendsignalApplyFor(); // 给父界面传递被关闭信息
-
+   
 }
 
 

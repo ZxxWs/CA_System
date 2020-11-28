@@ -30,8 +30,6 @@ Search::Search(UserClass nowUser,QWidget* parent)
     str << "通过" << "游客" << "管理员";
     ComboBoxSearchKind->insertItems(3, str);//填充下拉菜单
 
-
-
     connect(ui.ButtonToSearch, SIGNAL(clicked()), this, SLOT(ClickSearchButton()));//将按钮和点击事件绑定
     connect(ui.ButtonExit, SIGNAL(clicked()), this, SLOT(ClickEixtButton()));
     connect(ui.ButtonApplyFor, SIGNAL(clicked()), this, SLOT(ClickApplyForButton()));
@@ -50,8 +48,8 @@ void Search::ClickSearchButton() {
 void Search::ClickApplyForButton() {
 
     this->hide();
-    ApplyFor* applyForWin = new ApplyFor(this->NowUser);
-    connect(applyForWin, SIGNAL(sendsignalApplyFor()), this, SLOT(ReShowWindow()));//当点击子界面EixtButton，调用主界面的reshow()函数
+    ApplyFor* applyForWin = new ApplyFor(this->NowUser,this);
+    connect(applyForWin, SIGNAL(sendsignalApplyFor()), this, SLOT(ReShowWindow()));//当点击子界面EixtButton，调用主界面的ReShowWindow()函数
     applyForWin->show();
 
 }
@@ -63,7 +61,6 @@ void Search::ClickClearnTextButton() {
 
 
 void Search::ReShowWindow() {
-
     this->show();
 }
 

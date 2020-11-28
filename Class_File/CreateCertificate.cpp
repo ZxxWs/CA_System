@@ -4,7 +4,6 @@
 #include <strstream>
 #include <sstream>
 #include <string>
-#include <io.h>
 using namespace std;
 
 long CreateCertID();
@@ -22,7 +21,7 @@ CreateCertificate::CreateCertificate() {
 int CreateCertificate::Create() {
 
 
-    EVP_PKEY* pkey;//自己加的，但不知道是干啥的
+    EVP_PKEY* pkey;
 
     pkey = EVP_PKEY_new();
     FILE* f;
@@ -47,16 +46,16 @@ int CreateCertificate::Create() {
 
 
 
-    ////如果你曾经创建的命令行自签名证书之前，你可能还记得被问了一个国家代码。这里我们提供它随着组织（“O”）和通用名（“CN”）：
+    //如果你曾经创建的命令行自签名证书之前，你可能还记得被问了一个国家代码。这里我们提供它随着组织（“O”）和通用名（“CN”）：
     //X509_NAME_add_entry_by_txt(name, "C", MBSTRING_ASC,
-    //    (unsigned char*)"CA", -1, -1, 0);
+        //(unsigned char*)"CA", -1, -1, 0);
     //X509_NAME_add_entry_by_txt(name, "O", MBSTRING_ASC,
-    //    (unsigned char*)"MyCompany Inc.", -1, -1, 0);
+        //(unsigned char*)"MyCompany Inc.", -1, -1, 0);
     //X509_NAME_add_entry_by_txt(name, "CN", MBSTRING_ASC,
-    //    (unsigned char*)"localhost", -1, -1, 0);
+        //(unsigned char*)"localhost", -1, -1, 0);
 
 
-    ////现在，我们实际上可以设定发行人名称：
+    //现在，我们实际上可以设定发行人名称：
     //X509_set_issuer_name(Certx509, name);
 
 
