@@ -20,51 +20,61 @@ ApplyFor::ApplyFor(UserClass nowUser,QWidget* parent)
 
     ui.setupUi(this);
 
-    this->ButtonCreateDoubleKey = ui.ButtonCreateDoubleKey;
+    this->ButtonCreateKeyPair = ui.ButtonCreateKeyPair;
     this->ButtonCreateCertificate = ui.ButtonCreateCertificate;
+    this->ButtonSelectKeyPairPath = ui.ButtonSelectKeyPairPath;
+    this->ButtonSelectCertificatePath = ui.ButtonSelectCertificatePath;
     this->ButtonBackSearch = ui.ButtonBackSearch;
-    this->ButtonSelectSaveKeyPairPath = ui.ButtonSelectSaveKeyPairPath;
-    this->ButtonSaveCertificate = ui.ButtonSaveCertificate;
-    this->ButtonSelectPublicKeyPath = ui.ButtonSelectPublicKeyPath;
+    this->ButtonBackFunctionAlter = ui.ButtonBackFunctionAlter;
+
     this->LabelUserName = ui.LabelUserName;
     this->LabelCertificate = ui.LabelCertificate;
     this->LabelPublic = ui.LabelPublic;
-    this->LabelPrivate = ui.LabelPrivate;            
+    this->LabelPrivate = ui.LabelPrivate;
+
     this->TextEditCertificate = ui.TextEditCertificate;
     this->TextEditPublicKey = ui.TextEditPublicKey;
     this->TextEditPrivateKey = ui.TextEditPrivateKey;
-    this->LineEditSelectPath = ui.LineEditSelectPath;
+
+    this->LineEditSelectKeyPairPath = ui.LineEditSelectKeyPairPath;
+    this->LineEditSelectCertificatePath = ui.LineEditSelectCertificatePath;
+
+
+    this->LineEditSelectCertificatePath->hide();
+    this->ButtonCreateCertificate->hide();
+    this->ButtonSelectCertificatePath->hide();
     this->TextEditCertificate->hide();
+
     this->LabelCertificate->hide();
-    this->LabelPrivate->hide();
-    //this->ButtonCreateCertificate->hide();//方便测试所以注释掉
-    //this->ButtonSelectPublicKeyPath->hide();
+    this->LabelPublic->hide();
     this->LabelPrivate->hide();
     this->TextEditPrivateKey->hide();
+    this->TextEditPublicKey->hide();
 
-
-    connect(ui.ButtonCreateDoubleKey, SIGNAL(clicked()), this, SLOT(ClickCreateDoubleKeyButton()));//将按钮和点击事件绑定
-    connect(ui.ButtonCreateCertificate, SIGNAL(clicked()), this, SLOT(ClickCreateCertificateButton()));//将按钮和点击事件绑定
+    connect(ui.ButtonCreateKeyPair, SIGNAL(clicked()), this, SLOT(ClickCreateKeyPairButton()));
+    connect(ui.ButtonCreateCertificate, SIGNAL(clicked()), this, SLOT(ClickCreateCertificateButton()));
+    connect(ui.ButtonSelectKeyPairPath, SIGNAL(clicked()), this, SLOT(ClickSelectKeyPairPathButton()));
+    connect(ui.ButtonSelectCertificatePath, SIGNAL(clicked()), this, SLOT(ClickSelectCertificatePathButton()));
     connect(ui.ButtonBackSearch, SIGNAL(clicked()), this, SLOT(ClickBackSearchButton()));
-    connect(ui.ButtonSelectSaveKeyPairPath, SIGNAL(clicked()), this, SLOT(ClickSelectSaveKeyPairPathButton()));
-    connect(ui.ButtonSelectPublicKeyPath, SIGNAL(clicked()), this, SLOT(ClickSelectPublicKeyPathButton()));
-    connect(ui.ButtonSaveCertificate, SIGNAL(clicked()), this, SLOT(ClickSaveCertificateButton()));
+    connect(ui.ButtonBackFunctionAlter, SIGNAL(clicked()), this, SLOT(ClickFunctionAlter()));
+
 
     this->LabelUserName->setText(QString::fromStdString("用户： " + this->NowUser.UserName));
     this->certificateTable.ClientName = nowUser.UserName;
-
+    this->tagFunctionAlter = 0;
 }
 
-void ApplyFor::ClickCreateDoubleKeyButton() {
+void ApplyFor::ClickCreateKeyPairButton() {
 
     string strPath;
-    strPath = this->LineEditSelectPath->displayText().toStdString()+"/";
+    strPath = this->LineEditSelectKeyPairPath->displayText().toStdString()+"/";
     CreateKeyPair keyPair = CreateKeyPair(strPath,true);
 
+    this->TextEditPublicKey->show();
     this->TextEditPrivateKey->show();
-    this->ButtonCreateCertificate->show();
+    this->LabelPublic->show();
     this->LabelPrivate->show();
-    //this->ButtonSelectPublicKeyPath->hide();
+
     this->TextEditPrivateKey->setText(QString::fromStdString(keyPair.PrivateKey));
     this->TextEditPublicKey->setText(QString::fromStdString(keyPair.PublicKey));
     
@@ -72,22 +82,143 @@ void ApplyFor::ClickCreateDoubleKeyButton() {
 
 void ApplyFor::ClickCreateCertificateButton() {
 
+    string PublicPath = this->LineEditSelectKeyPairPath->displayText().toStdString();
+    string savePath = this->LineEditSelectCertificatePath->displayText().toStdString();
 
-    //此处生成的是CA的密钥对
-    CreateKeyPair CAKeyPair = CreateKeyPair(".",false);
-    this->certificateTable.CAPublicKey = CAKeyPair.PublicKey;
-    this->certificateTable.CAPrivateKey = CAKeyPair.PrivateKey;
 
-    CreateCertificate Cert = CreateCertificate();
+    CreateCertificate Cert = CreateCertificate(savePath,PublicPath);
     Cert.Create();
 
-    this->x509 = Cert.getCertX509();
-    this->certificateTable = Cert.getCertTable();
-    //this.cert
+    //this->x509 = Cert.getCertX509();
+    //this->certificateTable = Cert.getCertTable();
 
     this->TextEditCertificate->show();
-    this->ButtonSaveCertificate->show();
+    this->LabelCertificate->show();
+    
+    this->TextEditCertificate->setText(QString::fromStdString(Cert.test));
+
 }
+
+
+void ApplyFor::ClickSelectKeyPairPathButton() {
+
+    if (this->tagFunctionAlter == 0) {
+        QString dirPath = QFileDialog::getExistingDirectory(this, "选择目录", "", QFileDialog::ShowDirsOnly);
+        this->LineEditSelectKeyPairPath->setText(dirPath);
+    }
+    else
+    {
+        //此方法为网上查找-----------------------------------------
+        QString file_full, file_name, file_path;
+        QFileInfo fi;
+        file_full = QFileDialog::getOpenFileName(this);
+        fi = QFileInfo(file_full);
+        file_name = fi.fileName();
+        file_path = fi.absolutePath();
+        //--------------------------------------------------------
+        this->LineEditSelectKeyPairPath->setText(file_path + '/' + file_name);
+
+    }
+
+   
+}
+
+void ApplyFor::ClickSelectCertificatePathButton()
+{
+    QString dirPath = QFileDialog::getExistingDirectory(this, "选择目录", "", QFileDialog::ShowDirsOnly);
+    this->LineEditSelectCertificatePath->setText(dirPath);
+}
+
+//void ApplyFor::ClickSelectPublicKeyPathButton() {
+//
+//
+//    //此方法为网上查找-----------------------------------------
+//    QString file_full, file_name, file_path;
+//    QFileInfo fi;
+//    file_full = QFileDialog::getOpenFileName(this);
+//    fi = QFileInfo(file_full);
+//    file_name = fi.fileName();
+//    file_path = fi.absolutePath();
+//    //fi.fil
+//    //this->TextEditPublicKey->setText(file_path+'/'+file_name);
+//    //--------------------------------------------------------
+//    this->OpenPublicKeyPath = file_path + '/' + file_name;
+//   
+//
+//    ifstream infile;
+//    infile.open(OpenPublicKeyPath.toStdString().data());   //将文件流对象与文件连接起来 
+//
+//    if (infile.is_open()) {
+//
+//        string s;
+//        while (getline(infile, s))
+//        {
+//            this->ClientPublicKey = this->ClientPublicKey+s;
+//          }
+//
+//        infile.close();             //关闭文件输入流
+//
+//        this->TextEditPublicKey->setText(QString::fromStdString(this->ClientPublicKey));
+//
+//        //this->ButtonCreateCertificate->show();
+//    }
+//    else
+//    {
+//        this->TextEditPublicKey->setText("文件打开失败");
+//    }
+//
+//
+//}
+
+
+////证书保存按钮（未做验证）
+//void ApplyFor::ClickSaveCertificateButton() {
+//
+//    QString dirPath = QFileDialog::getExistingDirectory(this, "选择目录", "", QFileDialog::ShowDirsOnly);
+//    
+//    FILE* file;
+//    file = fopen((dirPath.toStdString()+"./cert.pem").c_str(), "wb");
+//    PEM_write_X509(file,this->x509);
+//    fclose(file);
+//
+//
+//}
+
+
+void ApplyFor::ClickFunctionAlter() {
+    if (this->tagFunctionAlter == 0) {//此时按钮点击后切换到生成证书的功能
+        this->tagFunctionAlter = 1;
+        this->ButtonBackFunctionAlter->setText("生成密钥对功能");
+
+        this->ButtonCreateKeyPair->hide();
+        this->LabelPublic->hide();
+        this->LabelPrivate->hide();
+        this->TextEditPublicKey->hide();
+        this->TextEditPrivateKey->hide();
+        this->LineEditSelectKeyPairPath->setPlaceholderText("输入公钥路径");
+        this->LineEditSelectKeyPairPath->setText("");
+        this->LineEditSelectCertificatePath->show();
+        this->ButtonCreateCertificate->show();
+        this->ButtonSelectCertificatePath->show();
+    }
+    else
+    {
+        this->tagFunctionAlter = 0;
+        this->ButtonBackFunctionAlter->setText("生成证书功能");
+
+
+        this->ButtonCreateKeyPair->show();
+       /* this->LabelPublic->show();
+        this->LabelPrivate->show();
+        this->TextEditPublicKey->show();
+        this->TextEditPrivateKey->show();*/
+        this->LineEditSelectKeyPairPath->setPlaceholderText("输入密钥对保存路径");
+        this->LineEditSelectCertificatePath->hide();
+        this->ButtonCreateCertificate->hide();
+    }
+}
+
+
 
 void ApplyFor::ClickBackSearchButton() {
 
@@ -99,69 +230,15 @@ void ApplyFor::ClickBackSearchButton() {
 void ApplyFor::closeEvent(QCloseEvent* event) {
 
     emit sendsignalApplyFor(); // 给父界面传递被关闭信息
-   
-}
-
-
-void ApplyFor::ClickSelectSaveKeyPairPathButton() {
-
-    QString dirPath= QFileDialog::getExistingDirectory(this, "选择目录","", QFileDialog::ShowDirsOnly);
-    this->LineEditSelectPath->setText(dirPath);
-}
-
-void ApplyFor::ClickSelectPublicKeyPathButton() {
-
-
-    //此方法为网上查找-----------------------------------------
-    QString file_full, file_name, file_path;
-    QFileInfo fi;
-    file_full = QFileDialog::getOpenFileName(this);
-    fi = QFileInfo(file_full);
-    file_name = fi.fileName();
-    file_path = fi.absolutePath();
-    //fi.fil
-    //this->TextEditPublicKey->setText(file_path+'/'+file_name);
-    //--------------------------------------------------------
-    this->OpenPublicKeyPath = file_path + '/' + file_name;
-   
-
-    ifstream infile;
-    infile.open(OpenPublicKeyPath.toStdString().data());   //将文件流对象与文件连接起来 
-
-    if (infile.is_open()) {
-
-        string s;
-        while (getline(infile, s))
-        {
-            this->ClientPublicKey = this->ClientPublicKey+s;
-          }
-
-        infile.close();             //关闭文件输入流
-
-        this->TextEditPublicKey->setText(QString::fromStdString(this->ClientPublicKey));
-
-        this->ButtonCreateCertificate->show();
-    }
-    else
-    {
-        this->TextEditPublicKey->setText("文件打开失败");
-    }
-
 
 }
 
 
-//证书保存按钮（未做验证）
-void ApplyFor::ClickSaveCertificateButton() {
-
-    QString dirPath = QFileDialog::getExistingDirectory(this, "选择目录", "", QFileDialog::ShowDirsOnly);
-    
-    FILE* file;
-    file = fopen((dirPath.toStdString()+"./cert.pem").c_str(), "wb");
-    PEM_write_X509(file,this->x509);
-    fclose(file);
 
 
-}
+
+
+
+
 
 

@@ -1,3 +1,7 @@
+/*
+参考链接https://stackoverrun.com/cn/q/33397
+*/
+
 #include "CreateCertificate.h"
 #include "SearchClass.h"
 #include <random>
@@ -9,7 +13,9 @@ using namespace std;
 long CreateCertID();
 
 //默认构造函数
-CreateCertificate::CreateCertificate() {
+CreateCertificate::CreateCertificate(string savePath, string pubPath) {
+    this->SavePath = savePath;
+    this->PublicPath = pubPath;
 }
 
 /*
@@ -21,11 +27,13 @@ CreateCertificate::CreateCertificate() {
 int CreateCertificate::Create() {
 
 
-    EVP_PKEY* pkey;
-
-    pkey = EVP_PKEY_new();
+    //-------------------------------获取公钥
+    EVP_PKEY* pkey=0;
     FILE* f;
-    f = fopen("C:/Users/zxxw/Desktop/pubkey.pem", "r");
+    f = fopen(PublicPath.c_str(), "r");
+    PEM_read_PUBKEY(f, &pkey, 0, 0);
+    //-------------------------------获取公钥
+
 
 
     //X509* x509;
@@ -38,31 +46,36 @@ int CreateCertificate::Create() {
     X509_set_pubkey(Certx509, pkey);
 
 
-    //由于这是自签名证书，我们设置了发行人的名称的名称学科。在这个过程的第一步是获取主题名称：
+    ////由于这是自签名证书，我们设置了发行人的名称的名称学科。在这个过程的第一步是获取主题名称：
 
-    //----------------------不知为何突然BUG-----------------------
-    //X509_NAME* name;
-    //name = X509_get_subject_name(Certx509);
-
-
-
-    //如果你曾经创建的命令行自签名证书之前，你可能还记得被问了一个国家代码。这里我们提供它随着组织（“O”）和通用名（“CN”）：
-    //X509_NAME_add_entry_by_txt(name, "C", MBSTRING_ASC,
-        //(unsigned char*)"CA", -1, -1, 0);
-    //X509_NAME_add_entry_by_txt(name, "O", MBSTRING_ASC,
-        //(unsigned char*)"MyCompany Inc.", -1, -1, 0);
-    //X509_NAME_add_entry_by_txt(name, "CN", MBSTRING_ASC,
-        //(unsigned char*)"localhost", -1, -1, 0);
+    ////----------------------不知为何突然BUG-----------------------
+    ////X509_NAME* name;
+    ////name = X509_get_subject_name(Certx509);
 
 
-    //现在，我们实际上可以设定发行人名称：
-    //X509_set_issuer_name(Certx509, name);
+
+    ////如果你曾经创建的命令行自签名证书之前，你可能还记得被问了一个国家代码。这里我们提供它随着组织（“O”）和通用名（“CN”）：
+    ////X509_NAME_add_entry_by_txt(name, "C", MBSTRING_ASC,
+    //    //(unsigned char*)"CA", -1, -1, 0);
+    ////X509_NAME_add_entry_by_txt(name, "O", MBSTRING_ASC,
+    //    //(unsigned char*)"MyCompany Inc.", -1, -1, 0);
+    ////X509_NAME_add_entry_by_txt(name, "CN", MBSTRING_ASC,
+    //    //(unsigned char*)"localhost", -1, -1, 0);
 
 
-    //最后，我们已准备好执行签名过程。我们称X509_sign与我们早先生成的密钥。该代码，这是痛苦地简单：
-        //我们使用的是SHA - 1散列算法要签名的密钥
+    ////现在，我们实际上可以设定发行人名称：
+    ////X509_set_issuer_name(Certx509, name);
+
+
+    ////最后，我们已准备好执行签名过程。我们称X509_sign与我们早先生成的密钥。该代码，这是痛苦地简单：
+    //    //我们使用的是SHA - 1散列算法要签名的密钥
     X509_sign(Certx509, pkey, EVP_sha1());
 
+    FILE* savef;
+    savef = fopen((SavePath + "/Cert.pem").c_str(), "wb");
+    this->test = SavePath + "/Cert.pem";
+    PEM_write_X509(savef,Certx509);
+    fclose(savef);
 
     //FILE* f;
     //f = fopen("key.pem", "wb");
@@ -116,6 +129,7 @@ long CreateCertID() {
         //long转string
         ostringstream os;
         os << CertID;
+
         string strCertID;
         istringstream is(os.str());
         is >> strCertID;
@@ -128,8 +142,10 @@ long CreateCertID() {
         s2 = search2.certificateTable[0].CertID;
 
 
-    } while (s1 != "" && s2 != "");
+    } while (s1 != "" || s2 != "");
 
     return CertID;
+    //return 12121212;
 
 }
+

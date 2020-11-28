@@ -19,28 +19,34 @@ class ApplyFor : public QMainWindow
 public:
 
     ApplyFor(UserClass nowUser, QWidget* parent = Q_NULLPTR);
-    QPushButton* ButtonCreateDoubleKey;
+    QPushButton* ButtonCreateKeyPair;
     QPushButton* ButtonCreateCertificate;
+    QPushButton* ButtonSelectCertificatePath;
+    QPushButton* ButtonSelectKeyPairPath;
     QPushButton* ButtonBackSearch;
-    QPushButton* ButtonSelectSaveKeyPairPath;
-    QPushButton* ButtonSelectPublicKeyPath;
-    QPushButton* ButtonSaveCertificate;
+    QPushButton* ButtonBackFunctionAlter;
+
     QLabel* LabelUserName;
     QLabel* LabelCertificate;
     QLabel* LabelPrivate;
     QLabel* LabelPublic;
+
     QTextEdit* TextEditPublicKey;
     QTextEdit* TextEditPrivateKey;
     QTextEdit* TextEditCertificate;
-    QLineEdit* LineEditSelectPath;
+
+    QLineEdit* LineEditSelectKeyPairPath;
+    QLineEdit* LineEditSelectCertificatePath;
+
 
 public slots:
-    void ClickCreateDoubleKeyButton();
+    void ClickCreateKeyPairButton();
     void ClickCreateCertificateButton();
+    void ClickSelectKeyPairPathButton();
+    void ClickSelectCertificatePathButton();
+    void ClickFunctionAlter();
     void ClickBackSearchButton();
-    void ClickSelectSaveKeyPairPathButton();
-    void ClickSelectPublicKeyPathButton();
-    void ClickSaveCertificateButton();
+
 
 signals:
     void sendsignalApplyFor();//这个函数用户向主界面通知关闭的消息
@@ -48,9 +54,9 @@ signals:
 private:
     Ui::ApplyFor ui;
     UserClass NowUser;
-    QString OpenPublicKeyPath;
+    QString OpenPublicKeyPath;//生成证书时打开的文件
     string ClientPublicKey;
-
+    int tagFunctionAlter;//0的时候用于生成密钥对；1生成证书
 
     //两种格式的证书
     CertificateTable certificateTable;

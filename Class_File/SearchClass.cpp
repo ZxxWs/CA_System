@@ -51,11 +51,18 @@ int SearchClass::toSearch() {	//返回0：失败,返回1：查询失败,返回5：查询成功
 		}
 		else if(this->SearchTag==1)//查询certificatetable表
 		{
-
+			for (int i = 0; column = mysql_fetch_row(res); i++) {
+				this->certificateTable[i].CertID = column[0];
+			}
+			return 5;
 		}
 		else if(this->SearchTag==2)//查询Diecertificatetable表
 		{
-
+			for (int i = 0; column = mysql_fetch_row(res); i++) {
+				//this->UserClassList[i].UserName = column[0];
+				this->dieCertificateTable[i].CertID = column[0];
+			}
+			return 5;
 		}
 
 	}

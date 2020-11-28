@@ -9,6 +9,10 @@
 #include "../Class_File/SearchClass.h"
 #include "../Class_File/CreateKeyPair.h"
 
+#include <strstream>
+#include <sstream>
+#include <string>
+#include <random>
 using namespace std;
 
 CA_System::CA_System(QWidget *parent)
@@ -110,4 +114,41 @@ int CA_System::getInputDate() {
 
 
 }
+
+
+
+//通过查询数据库来生成一个CertID
+long CreateCertID() {
+
+    string s1, s2;//查询表中的CertID
+    long CertID;
+    do {
+
+        default_random_engine e(time(0));//随机数引擎
+        CertID = e();
+
+        //long转string
+        ostringstream os;
+        os << CertID;
+
+        string strCertID;
+        istringstream is(os.str());
+        is >> strCertID;
+
+        SearchClass search1 = SearchClass(strCertID, "CertID", 1);
+        SearchClass search2 = SearchClass(strCertID, "CertID", 2);
+        search1.toSearch();
+        search2.toSearch();
+        s1 = search1.certificateTable[0].CertID;
+        s2 = search2.certificateTable[0].CertID;
+
+
+    } while (s1 != "" || s2 != "");
+
+    return CertID;
+    //return 12121212;
+
+}
+
+
 
