@@ -10,6 +10,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include "../Class_File/InsertClass.h"
 
 
 using namespace std;
@@ -89,16 +90,16 @@ void ApplyFor::ClickCreateCertificateButton() {
     CreateCertificate Cert = CreateCertificate(savePath,PublicPath);
     Cert.Create();
 
-    //this->x509 = Cert.getCertX509();
-    //this->certificateTable = Cert.getCertTable();
+    InsertClass  Ins = InsertClass(Cert.getCertTable(), 0);
+
+
 
     this->TextEditCertificate->show();
     this->LabelCertificate->show();
-    
-    this->TextEditCertificate->setText(QString::fromStdString(Cert.test));
+
+    this->TextEditCertificate->setText(QString::fromStdString(Cert.getCertString()));
 
 }
-
 
 void ApplyFor::ClickSelectKeyPairPathButton() {
 
@@ -194,7 +195,9 @@ void ApplyFor::ClickFunctionAlter() {
         this->LabelPublic->hide();
         this->LabelPrivate->hide();
         this->TextEditPublicKey->hide();
+        this->TextEditPublicKey->setText("");
         this->TextEditPrivateKey->hide();
+        this->TextEditPrivateKey->setText("");
         this->LineEditSelectKeyPairPath->setPlaceholderText("输入公钥路径");
         this->LineEditSelectKeyPairPath->setText("");
         this->LineEditSelectCertificatePath->show();
@@ -208,17 +211,17 @@ void ApplyFor::ClickFunctionAlter() {
 
 
         this->ButtonCreateKeyPair->show();
-       /* this->LabelPublic->show();
-        this->LabelPrivate->show();
-        this->TextEditPublicKey->show();
-        this->TextEditPrivateKey->show();*/
         this->LineEditSelectKeyPairPath->setPlaceholderText("输入密钥对保存路径");
         this->LineEditSelectCertificatePath->hide();
+        this->LineEditSelectCertificatePath->setText("");
         this->ButtonCreateCertificate->hide();
+        this->ButtonSelectCertificatePath->hide();
+        this->TextEditCertificate->hide();
+        this->TextEditCertificate->setText("");
+        this->LabelCertificate->hide();
+
     }
 }
-
-
 
 void ApplyFor::ClickBackSearchButton() {
 
@@ -232,11 +235,6 @@ void ApplyFor::closeEvent(QCloseEvent* event) {
     emit sendsignalApplyFor(); // 给父界面传递被关闭信息
 
 }
-
-
-
-
-
 
 
 

@@ -18,7 +18,8 @@ public:
 	SearchClass(string key,string keyName, int tag);
 	int setData(string key, string keyName, int tag);
 	int toSearch();//需要执行查询函数-如果有时间将此函数重构
-	string lab;
+
+	string tips;
 
 private:
 	int SearchTag;//查询的方式类型

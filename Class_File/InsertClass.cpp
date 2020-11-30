@@ -7,6 +7,11 @@
 
 using namespace std;
 
+InsertClass::InsertClass()
+{
+}
+
+
 //如果tag=0,则是新增，需要检查重复名
 InsertClass::InsertClass(UserClass insertUser,int tag) {
 
@@ -17,7 +22,6 @@ InsertClass::InsertClass(UserClass insertUser,int tag) {
 		if (tag == 0) {
 			SearchClass search = SearchClass(insertUser.UserName, "UserName", 1);
 			if (search.UserClassList[0].UserName != insertUser.UserName) {
-
 
 
 				string str = "insert into usertable  (UserName,UserPassWord,UserTag,UserTEL,UserCompany,UserRemark) values ('" + insertUser.UserName + "','" + insertUser.UserPassWord + "','" + to_string(insertUser.UserTag) + "','" + insertUser.UserTEL + "','" + insertUser.UserCompany + "','" + insertUser.UserRemark + "')";
@@ -52,17 +56,33 @@ InsertClass::InsertClass(UserClass insertUser,int tag) {
 	{
 		this->tips = "数据库连接失败，请检查网络设置";
 	}
+
 }
 
+
+//tag=0插入证书表，tag=1插入删除表
 InsertClass::InsertClass(CertificateTable insertCertificate, int tag) {
+
 	this->tips = "false";
 	if (ConnectDatabase()) {
+		if (tag == 0) {
 
+			string str = "insert into certificatetable  (CertID,ClientKey,Certificate) values ('" + insertCertificate.CertID + "','" + insertCertificate.ClientKey + "','" + insertCertificate.Certificate + "')";
 
+			this->tips = str;
 
-
-
-
+			sprintf_s(AddQuery, &str[0]);
+			if (mysql_query(AddMysql, AddQuery))        //执行SQL语句  
+			{
+				this->tips = "生成失败。";
+				return;
+			}
+			else
+			{
+				this->tips = "生成成功";
+				return;
+			}
+		}
 	}
 	else
 	{
@@ -70,23 +90,6 @@ InsertClass::InsertClass(CertificateTable insertCertificate, int tag) {
 	}
 }
 
-
-
-
-//////插入学生信息
-////bool InsertStudent(string num, string name, string grade, string remark) {
-////
-////	string str = "insert into grade" + grade + " (Snum,Sname,Sgrade,Sremark) values ('" + num + "','" + name + "','" + grade + "','" + remark + "')";
-////	sprintf_s(AddQuery, &str[0]);
-////	if (mysql_query(AddMysql, AddQuery))        //执行SQL语句  
-////	{
-////		return false;
-////	}
-////	else
-////	{
-////		return true;
-////	}
-////}
 
 //连接数据库函数
 bool  InsertClass::ConnectDatabase() {

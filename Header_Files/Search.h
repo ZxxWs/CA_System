@@ -36,4 +36,7 @@ signals:
 
 protected:
     void closeEvent(QCloseEvent* event);//关闭界面的逻辑，主要是给上个界面来传递参数
+    int SearchKind;//查找方式
+
+
 };

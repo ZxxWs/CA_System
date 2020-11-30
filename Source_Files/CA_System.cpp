@@ -10,9 +10,6 @@
 #include "../Class_File/CreateKeyPair.h"
 
 
-
-long CreateCert();
-
 CA_System::CA_System(QWidget *parent)
     : QMainWindow(parent)
 {
@@ -62,7 +59,7 @@ void CA_System::ClickLogInButton() {
 
 
     }
-    else if(t==2)//游客登录
+    else if(t==2)//游客登录(有点问题）
     {
         Search* searchWin = new Search(NowUser, this);
         connect(searchWin, SIGNAL(sendsignal()), this, SLOT(ReShowWindow()));//当点击子界面EixtButton，调用主界面的reshow()函数-----未完成

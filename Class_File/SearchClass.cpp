@@ -7,7 +7,6 @@ using namespace std;
 
 SearchClass::SearchClass(){}
 
-
 SearchClass::SearchClass(string key, string keyName, int tag) {
 	this->SearchKey = key;
 	this->SearchKeyName = keyName;
@@ -26,9 +25,7 @@ int SearchClass::toSearch() {	//返回0：失败,返回1：查询失败,返回5：查询成功
 
 	if (ConnectDatabase()) {
 
-
 		string Query = "select * from "+ SearchKind[this->SearchTag]+" where " + this->SearchKeyName + " = " + this->SearchKey;//构建查询语句
-		this->lab = Query;
 		sprintf_s(query, &Query[0]); //转存查询语句
 		mysql_query(mysql, "set names utf8"); //设置编码格式
 

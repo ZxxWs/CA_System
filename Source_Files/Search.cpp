@@ -27,7 +27,7 @@ Search::Search(UserClass nowUser,QWidget* parent)
     this->LabelUserName->setText(QString::fromStdString("用户：" + NowUser.UserName));
 
     QStringList str;
-    str << "通过" << "游客" << "管理员";
+    str << "通过证书号查询" << "通过证书字符串查询" << "";
     ComboBoxSearchKind->insertItems(3, str);//填充下拉菜单
 
     connect(ui.ButtonToSearch, SIGNAL(clicked()), this, SLOT(ClickSearchButton()));//将按钮和点击事件绑定
@@ -36,10 +36,27 @@ Search::Search(UserClass nowUser,QWidget* parent)
     connect(ui.ButtonClearnText, SIGNAL(clicked()), this, SLOT(ClickClearnTextButton()));
 }
 
+//内容不少。。。。
 void Search::ClickSearchButton() {
 
-    QString QSearchContent = this->TextEditSearchContent->toPlainText();
-    this->lab->setText(QSearchContent);
+    string SearchContent = this->TextEditSearchContent->toPlainText().toStdString();
+  
+    this->SearchKind = this->ComboBoxSearchKind->currentIndex();
+
+    if (this->SearchKind == 0) {//通过证书号查找
+        SearchClass Sear = SearchClass(SearchContent, "CertID", 1);
+        Sear.toSearch();
+
+        
+
+
+    }
+
+
+
+
+
+    this->lab->setText(this->TextEditSearchContent->toPlainText());
 
 }
 

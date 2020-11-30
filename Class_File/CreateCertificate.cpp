@@ -9,6 +9,22 @@
 CreateCertificate::CreateCertificate(string savePath, string pubPath) {
     this->SavePath = savePath;
     this->PublicPath = pubPath;
+    this->CertID = CreateCertID();
+
+    //获取客户公钥
+    ifstream infile;
+    infile.open(PublicPath.data());  //将文件流对象与文件连接起来 
+
+    if (infile.is_open()) {
+        string s;
+        while (getline(infile, s))
+        {
+            this->ClientKey = this->ClientKey + s + '\n';
+        }
+        infile.close();             //关闭文件输入流
+    }
+
+    //test=this->ClientKey;
 }
 
 /*
@@ -29,7 +45,7 @@ int CreateCertificate::Create() {
 
 
     this->Certx509 = X509_new();
-    ASN1_INTEGER_set(X509_get_serialNumber(Certx509), CreateCertID());//证书编号
+    ASN1_INTEGER_set(X509_get_serialNumber(Certx509), CertID);//证书编号
     X509_gmtime_adj(X509_get_notBefore(Certx509), 0);//设置证书的notBefore属性设置为当前时间。 （X509_gmtime_adj函数将当前时间加上指定的秒数 - 在这种情况下无）。
     X509_gmtime_adj(X509_get_notAfter(Certx509), 31536000L);//将证书的notAfter属性设置为从现在开始的365天（60秒 * 60分钟 * 24小时 * 365天）
 
@@ -38,35 +54,52 @@ int CreateCertificate::Create() {
 
 
     ////由于这是自签名证书，我们设置了发行人的名称的名称学科。在这个过程的第一步是获取主题名称：
-
-    ////----------------------不知为何突然BUG-----------------------
     X509_NAME* name;
     name = X509_get_subject_name(Certx509);
 
 
 
     ////如果你曾经创建的命令行自签名证书之前，你可能还记得被问了一个国家代码。这里我们提供它随着组织（“O”）和通用名（“CN”）：
-    ////X509_NAME_add_entry_by_txt(name, "C", MBSTRING_ASC,
-    //    //(unsigned char*)"CA", -1, -1, 0);
-    ////X509_NAME_add_entry_by_txt(name, "O", MBSTRING_ASC,
-    //    //(unsigned char*)"MyCompany Inc.", -1, -1, 0);
-    ////X509_NAME_add_entry_by_txt(name, "CN", MBSTRING_ASC,
-    //    //(unsigned char*)"localhost", -1, -1, 0);
+    X509_NAME_add_entry_by_txt(name, "C", MBSTRING_ASC,
+        (unsigned char*)"CA", -1, -1, 0);
+    X509_NAME_add_entry_by_txt(name, "O", MBSTRING_ASC,
+        (unsigned char*)"MyCompany Inc.", -1, -1, 0);
+    X509_NAME_add_entry_by_txt(name, "CN", MBSTRING_ASC,
+        (unsigned char*)"localhost", -1, -1, 0);
 
 
     ////现在，我们实际上可以设定发行人名称：
-    ////X509_set_issuer_name(Certx509, name);
+    X509_set_issuer_name(Certx509, name);
 
 
     ////最后，我们已准备好执行签名过程。我们称X509_sign与我们早先生成的密钥。该代码，这是痛苦地简单：
     //    //我们使用的是SHA - 1散列算法要签名的密钥
     X509_sign(Certx509, pkey, EVP_sha1());
 
+
+
+    //将证书保存在文件中---------------------------------------------
     FILE* savef;
     savef = fopen((SavePath + "/Cert.pem").c_str(), "wb");
-    this->test = SavePath + "/Cert.pem";
     PEM_write_X509(savef,Certx509);
     fclose(savef);
+    //将证书保存在文件中---------------------------------------------
+
+
+    //从文件中读取证书--------------------------------------------
+    ifstream infile;
+    infile.open((SavePath + "/Cert.pem").data());  //将文件流对象与文件连接起来 
+
+    if (infile.is_open()) {
+        string s;
+        while (getline(infile, s))
+        {
+            this->CertString = this->CertString+s+'\n';
+        }
+        infile.close();             //关闭文件输入流
+    }
+    //从文件中读取证书--------------------------------------------
+
 
     //FILE* f;
     //f = fopen("key.pem", "wb");
@@ -90,17 +123,25 @@ int CreateCertificate::Create() {
 
 
 X509* CreateCertificate::getCertX509() {
+
     return this->Certx509;
 }
 
 string CreateCertificate::getCertString() {
 
-
-    //将X509格式转为String（未写）
+    //将X509格式转为String
     return this->CertString;
 }
 
 CertificateTable CreateCertificate::getCertTable() {
+
+
+    this->CertTable.CertID = to_string(this->CertID);
+    this->CertTable.Certificate = this->CertString;
+    this->CertTable.ClientKey = this->ClientKey;
+ 
+
+
 
     //将X509格式转为CertificateTable（未写）
     return this->CertTable;
