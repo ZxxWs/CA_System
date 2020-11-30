@@ -3,14 +3,7 @@
 */
 
 #include "CreateCertificate.h"
-#include "SearchClass.h"
-#include <random>
-#include <strstream>
-#include <sstream>
-#include <string>
-using namespace std;
 
-long CreateCertID();
 
 //默认构造函数
 CreateCertificate::CreateCertificate(string savePath, string pubPath) {
@@ -35,8 +28,6 @@ int CreateCertificate::Create() {
     //-------------------------------获取公钥
 
 
-
-    //X509* x509;
     this->Certx509 = X509_new();
     ASN1_INTEGER_set(X509_get_serialNumber(Certx509), CreateCertID());//证书编号
     X509_gmtime_adj(X509_get_notBefore(Certx509), 0);//设置证书的notBefore属性设置为当前时间。 （X509_gmtime_adj函数将当前时间加上指定的秒数 - 在这种情况下无）。
@@ -49,8 +40,8 @@ int CreateCertificate::Create() {
     ////由于这是自签名证书，我们设置了发行人的名称的名称学科。在这个过程的第一步是获取主题名称：
 
     ////----------------------不知为何突然BUG-----------------------
-    ////X509_NAME* name;
-    ////name = X509_get_subject_name(Certx509);
+    X509_NAME* name;
+    name = X509_get_subject_name(Certx509);
 
 
 
@@ -117,14 +108,17 @@ CertificateTable CreateCertificate::getCertTable() {
 
 
 //通过查询数据库来生成一个CertID
-long CreateCertID() {
+long CreateCertificate::CreateCertID() {
 
-    string s1, s2;//查询表中的CertID
     long CertID;
+    string s1, s2;//查询表中的CertID
+
+    default_random_engine eng(time(0));//随机数引擎
+    uniform_int_distribution<long> dis(1, 2147483646);
+
     do {
 
-        default_random_engine e(time(0));//随机数引擎
-        CertID = e();
+        CertID = dis(eng);
 
         //long转string
         ostringstream os;
@@ -134,18 +128,18 @@ long CreateCertID() {
         istringstream is(os.str());
         is >> strCertID;
 
-        SearchClass search1 = SearchClass(strCertID, "CertID", 1);
-        SearchClass search2 = SearchClass(strCertID, "CertID", 2);
-        search1.toSearch();
-        search2.toSearch();
-        s1 = search1.certificateTable[0].CertID;
-        s2 = search2.certificateTable[0].CertID;
+        SearchClass sea;
+        sea.setData(strCertID, "CertID", 1);
+        sea.toSearch();
+        s1 = sea.certificateTable[0].CertID;
+        sea.setData(strCertID, "CertID", 1);
+        sea.toSearch();
+        s2 = sea.dieCertificateTable[0].CertID;
+
 
 
     } while (s1 != "" || s2 != "");
 
     return CertID;
-    //return 12121212;
-
 }
 

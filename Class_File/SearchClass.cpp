@@ -14,6 +14,14 @@ SearchClass::SearchClass(string key, string keyName, int tag) {
 	this->SearchTag = tag;
 }
 
+int SearchClass::setData(string key, string keyName, int tag)
+{
+	this->SearchKey = key;
+	this->SearchKeyName = keyName;
+	this->SearchTag = tag;
+	return 0;
+}
+
 int SearchClass::toSearch() {	//返回0：失败,返回1：查询失败,返回5：查询成功
 
 	if (ConnectDatabase()) {
@@ -53,14 +61,33 @@ int SearchClass::toSearch() {	//返回0：失败,返回1：查询失败,返回5：查询成功
 		{
 			for (int i = 0; column = mysql_fetch_row(res); i++) {
 				this->certificateTable[i].CertID = column[0];
+				this->certificateTable[i].ClientKey = column[1];
+				this->certificateTable[i].Certificate = column[5];
+				this->certificateTable[i].ClientName = column[6];
+				//this->certificateTable[i].ClientKey = column[1];
+				//this->certificateTable[i].ClientKey = column[1];
+
+				string CertID;
+				string ClientKey;
+				string CAPublicKey;
+				string CAPrivateKey;
+				string Certificate;
+				string ClientName;
+				time_t CreateTime;
+				time_t DieTime;
+				time_t DeleteTime;
 			}
 			return 5;
 		}
 		else if(this->SearchTag==2)//查询Diecertificatetable表
 		{
 			for (int i = 0; column = mysql_fetch_row(res); i++) {
-				//this->UserClassList[i].UserName = column[0];
+
 				this->dieCertificateTable[i].CertID = column[0];
+				this->dieCertificateTable[i].ClientKey = column[1];
+				this->dieCertificateTable[i].Certificate = column[5];
+				this->dieCertificateTable[i].ClientName = column[6];
+
 			}
 			return 5;
 		}

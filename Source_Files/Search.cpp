@@ -48,6 +48,7 @@ void Search::ClickSearchButton() {
 void Search::ClickApplyForButton() {
 
     this->hide();
+    //UserClass u=this->NowUser;
     ApplyFor* applyForWin = new ApplyFor(this->NowUser,this);
     connect(applyForWin, SIGNAL(sendsignalApplyFor()), this, SLOT(ReShowWindow()));//当点击子界面EixtButton，调用主界面的ReShowWindow()函数
     applyForWin->show();

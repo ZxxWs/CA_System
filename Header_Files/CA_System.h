@@ -5,6 +5,14 @@
 #include "qpushbutton.h"
 #include "../Class_File/UserClass.h"
 
+#include <strstream>
+#include <sstream>
+#include <string>
+#include <random>
+using namespace std;
+
+
+
 class CA_System : public QMainWindow
 {
     Q_OBJECT
@@ -31,4 +39,6 @@ private:
     Ui::CA_SystemClass ui;
     int getInputDate();
     UserClass NowUser;
+
+
 };

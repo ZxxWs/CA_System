@@ -9,11 +9,9 @@
 #include "../Class_File/SearchClass.h"
 #include "../Class_File/CreateKeyPair.h"
 
-#include <strstream>
-#include <sstream>
-#include <string>
-#include <random>
-using namespace std;
+
+
+long CreateCert();
 
 CA_System::CA_System(QWidget *parent)
     : QMainWindow(parent)
@@ -32,6 +30,8 @@ CA_System::CA_System(QWidget *parent)
 
     connect(ui.ButtonLogIn, SIGNAL(clicked()), this, SLOT(ClickLogInButton()));//将按钮和点击事件绑定
     connect(ui.ButtonSignIn, SIGNAL(clicked()), this, SLOT(ClickSignInButton()));
+
+
 
 }
 
@@ -82,6 +82,7 @@ void CA_System::ClickLogInButton() {
 
 void CA_System::ClickSignInButton() {
 
+
     this->hide();
     SignIn* signIn = new SignIn(this);
     connect(signIn, SIGNAL(sendsignal()), this, SLOT(ReShowWindow()));//将此界面的ReShowWindow（）与signIn界面的sendsignal绑定
@@ -114,41 +115,5 @@ int CA_System::getInputDate() {
 
 
 }
-
-
-
-//通过查询数据库来生成一个CertID
-long CreateCertID() {
-
-    string s1, s2;//查询表中的CertID
-    long CertID;
-    do {
-
-        default_random_engine e(time(0));//随机数引擎
-        CertID = e();
-
-        //long转string
-        ostringstream os;
-        os << CertID;
-
-        string strCertID;
-        istringstream is(os.str());
-        is >> strCertID;
-
-        SearchClass search1 = SearchClass(strCertID, "CertID", 1);
-        SearchClass search2 = SearchClass(strCertID, "CertID", 2);
-        search1.toSearch();
-        search2.toSearch();
-        s1 = search1.certificateTable[0].CertID;
-        s2 = search2.certificateTable[0].CertID;
-
-
-    } while (s1 != "" || s2 != "");
-
-    return CertID;
-    //return 12121212;
-
-}
-
 
 

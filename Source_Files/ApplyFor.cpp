@@ -58,9 +58,9 @@ ApplyFor::ApplyFor(UserClass nowUser,QWidget* parent)
     connect(ui.ButtonBackSearch, SIGNAL(clicked()), this, SLOT(ClickBackSearchButton()));
     connect(ui.ButtonBackFunctionAlter, SIGNAL(clicked()), this, SLOT(ClickFunctionAlter()));
 
-
+    NowUser = nowUser;
     this->LabelUserName->setText(QString::fromStdString("ÓÃ»§£º " + this->NowUser.UserName));
-    this->certificateTable.ClientName = nowUser.UserName;
+    this->certificateTable.ClientName = NowUser.UserName;
     this->tagFunctionAlter = 0;
 }
 
