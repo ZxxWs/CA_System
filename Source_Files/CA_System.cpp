@@ -79,7 +79,6 @@ void CA_System::ClickLogInButton() {
 
 void CA_System::ClickSignInButton() {
 
-
     this->hide();
     SignIn* signIn = new SignIn(this);
     connect(signIn, SIGNAL(sendsignal()), this, SLOT(ReShowWindow()));//将此界面的ReShowWindow（）与signIn界面的sendsignal绑定

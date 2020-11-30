@@ -6,10 +6,11 @@
 
 
 //默认构造函数
-CreateCertificate::CreateCertificate(string savePath, string pubPath) {
+CreateCertificate::CreateCertificate(string savePath, string pubPath,string clientName) {
     this->SavePath = savePath;
     this->PublicPath = pubPath;
     this->CertID = CreateCertID();
+    this->ClientName = clientName;
 
     //获取客户公钥
     ifstream infile;
@@ -46,8 +47,29 @@ int CreateCertificate::Create() {
 
     this->Certx509 = X509_new();
     ASN1_INTEGER_set(X509_get_serialNumber(Certx509), CertID);//证书编号
+
     X509_gmtime_adj(X509_get_notBefore(Certx509), 0);//设置证书的notBefore属性设置为当前时间。 （X509_gmtime_adj函数将当前时间加上指定的秒数 - 在这种情况下无）。
     X509_gmtime_adj(X509_get_notAfter(Certx509), 31536000L);//将证书的notAfter属性设置为从现在开始的365天（60秒 * 60分钟 * 24小时 * 365天）
+
+    //long i = time_t(0);
+
+    //----------------------设置数据库插入数据时间-----------------------
+    //long转string
+    ostringstream os;
+    os << time_t(0);
+    string strCreateTime;
+    istringstream is(os.str());
+    is >> strCreateTime;
+    this->CertTable.CreateTime = strCreateTime;
+
+
+    ostringstream os2;
+    os2 << time_t(31536000L);
+    string strDieTime;
+    istringstream is2(os.str());
+    is2 >> strCreateTime;
+    this->CertTable.DieTime = strDieTime;
+    //----------------------设置数据库插入数据时间-----------------------
 
     //现在我们需要用我们产生较早的关键，为我们的证书的公钥：
     X509_set_pubkey(Certx509, pkey);
@@ -63,7 +85,7 @@ int CreateCertificate::Create() {
     X509_NAME_add_entry_by_txt(name, "C", MBSTRING_ASC,
         (unsigned char*)"CA", -1, -1, 0);
     X509_NAME_add_entry_by_txt(name, "O", MBSTRING_ASC,
-        (unsigned char*)"MyCompany Inc.", -1, -1, 0);
+        (unsigned char*)this->ClientName.c_str(), -1, -1, 0);
     X509_NAME_add_entry_by_txt(name, "CN", MBSTRING_ASC,
         (unsigned char*)"localhost", -1, -1, 0);
 
@@ -139,11 +161,8 @@ CertificateTable CreateCertificate::getCertTable() {
     this->CertTable.CertID = to_string(this->CertID);
     this->CertTable.Certificate = this->CertString;
     this->CertTable.ClientKey = this->ClientKey;
- 
+    this->CertTable.ClientName = this->ClientName;
 
-
-
-    //将X509格式转为CertificateTable（未写）
     return this->CertTable;
 }
 

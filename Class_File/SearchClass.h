@@ -31,7 +31,7 @@ private:
 	MYSQL_RES* res; //这个结构代表返回行的一个查询结果集  
 	MYSQL_ROW column; //一个行数据的类型安全(type-safe)的表示，表示数据行的列  
 	char query[5000]; //查询语句
-	string SearchKind[3] = { "Usertable", "certificatetable","Diecertificatetable" };
+	string SearchTable[3] = { "Usertable", "certificatetable","Diecertificatetable" };
 
 
 	bool ConnectDatabase();

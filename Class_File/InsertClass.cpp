@@ -67,7 +67,14 @@ InsertClass::InsertClass(CertificateTable insertCertificate, int tag) {
 	if (ConnectDatabase()) {
 		if (tag == 0) {
 
-			string str = "insert into certificatetable  (CertID,ClientKey,Certificate) values ('" + insertCertificate.CertID + "','" + insertCertificate.ClientKey + "','" + insertCertificate.Certificate + "')";
+			string str = "insert into certificatetable  (CertID,ClientKey,Certificate,ClientName,CreateTime,DieTime) values ('"
+				+ insertCertificate.CertID + "','" 
+				+ insertCertificate.ClientKey + "','" 
+				+ insertCertificate.Certificate + "','"
+				+ insertCertificate.ClientName + "','"
+				+ insertCertificate.CreateTime + "','"
+				+insertCertificate.DieTime + "','"
+				"')";
 
 			this->tips = str;
 

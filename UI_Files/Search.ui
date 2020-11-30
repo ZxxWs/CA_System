@@ -137,63 +137,96 @@
     <string>确认查找</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_2">
+  <widget class="QLabel" name="LabelCertID">
    <property name="geometry">
     <rect>
-     <x>650</x>
+     <x>660</x>
      <y>180</y>
      <width>72</width>
      <height>15</height>
     </rect>
    </property>
    <property name="text">
-    <string>TextLabel</string>
+    <string>证书编号：</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_3">
+  <widget class="QLabel" name="LabelCert">
    <property name="geometry">
     <rect>
-     <x>650</x>
+     <x>660</x>
      <y>240</y>
      <width>72</width>
      <height>15</height>
     </rect>
    </property>
    <property name="text">
-    <string>TextLabel</string>
+    <string>证书：</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit">
+  <widget class="QLineEdit" name="LineEditCertID">
    <property name="geometry">
     <rect>
      <x>750</x>
      <y>180</y>
-     <width>171</width>
-     <height>21</height>
+     <width>251</width>
+     <height>31</height>
     </rect>
    </property>
   </widget>
-  <widget class="QTextEdit" name="textEdit">
+  <widget class="QTextEdit" name="TextEditCert">
    <property name="geometry">
     <rect>
      <x>750</x>
      <y>240</y>
-     <width>171</width>
+     <width>251</width>
      <height>161</height>
     </rect>
    </property>
   </widget>
-  <widget class="QLabel" name="label_5">
+  <widget class="QLabel" name="LabelCertState">
    <property name="geometry">
     <rect>
      <x>660</x>
-     <y>430</y>
-     <width>231</width>
+     <y>490</y>
+     <width>71</width>
      <height>20</height>
     </rect>
    </property>
    <property name="text">
-    <string>TextLabel</string>
+    <string>证书状态：</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LabelClientName">
+   <property name="geometry">
+    <rect>
+     <x>660</x>
+     <y>430</y>
+     <width>71</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>申请者：</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="LineEditClientName">
+   <property name="geometry">
+    <rect>
+     <x>750</x>
+     <y>430</y>
+     <width>251</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="LineEditCertState">
+   <property name="geometry">
+    <rect>
+     <x>750</x>
+     <y>480</y>
+     <width>251</width>
+     <height>31</height>
+    </rect>
    </property>
   </widget>
  </widget>

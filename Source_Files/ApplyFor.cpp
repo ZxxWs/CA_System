@@ -87,7 +87,7 @@ void ApplyFor::ClickCreateCertificateButton() {
     string savePath = this->LineEditSelectCertificatePath->displayText().toStdString();
 
 
-    CreateCertificate Cert = CreateCertificate(savePath,PublicPath);
+    CreateCertificate Cert = CreateCertificate(savePath,PublicPath,this->NowUser.UserName);
     Cert.Create();
 
     InsertClass  Ins = InsertClass(Cert.getCertTable(), 0);
@@ -97,8 +97,8 @@ void ApplyFor::ClickCreateCertificateButton() {
     this->TextEditCertificate->show();
     this->LabelCertificate->show();
 
-    this->TextEditCertificate->setText(QString::fromStdString(Cert.getCertString()));
-
+    //this->TextEditCertificate->setText(QString::fromStdString(Cert.getCertString()));
+    this->TextEditCertificate->setText(QString::fromStdString(Cert.getCertTable().CreateTime));
 }
 
 void ApplyFor::ClickSelectKeyPairPathButton() {

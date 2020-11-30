@@ -17,16 +17,17 @@ public:
 	string CAPrivateKey;
 	string Certificate;
 	string ClientName;
-	time_t CreateTime;
-	time_t DieTime;
-	time_t DeleteTime;
 
-	void setCreateTime();
-	void setDieTime();
-	void setDeleteTime();
+	string CreateTime;
+	string DieTime;
+	string DeleteTime;
+
+
 	time_t getCreateTime();
 	time_t getDieTime();
 	time_t getDeleteTime();
+
+
 };
 
  

@@ -19,8 +19,27 @@ Search::Search(UserClass nowUser,QWidget* parent)
     this->ButtonExit = ui.ButtonExit;
     this->ButtonToSearch = ui.ButtonToSearch;
     this->LabelUserName = ui.LabelUserName;
+    this->LabelCertState = ui.LabelCertState;
+    this->LabelCert = ui.LabelCert;
+    this->LabelCertID = ui.LabelCertID;
+    this->LabelClientName = ui.LabelClientName;
     this->ComboBoxSearchKind = ui.ComboBoxSearchKind;
     this->TextEditSearchContent = ui.TextEditSearchContent;
+    this->TextEditCert = ui.TextEditCert;
+    this->LineEditCertID = ui.LineEditCertID;
+    this->LineEditClientName = ui.LineEditClientName;
+    this->LineEditCertState = ui.LineEditCertState;
+
+    this->LabelCert->hide();
+    this->LabelCertID->hide();
+    this->LabelClientName->hide();
+    this->LabelCertState->hide();
+    this->LineEditCertID->hide();
+    this->LineEditClientName->hide();
+    this->LineEditCertState->hide();
+    this->TextEditCert->hide();
+
+
     this->lab = ui.label;   //用于测试的label
     this->NowUser = nowUser;
 
@@ -36,21 +55,39 @@ Search::Search(UserClass nowUser,QWidget* parent)
     connect(ui.ButtonClearnText, SIGNAL(clicked()), this, SLOT(ClickClearnTextButton()));
 }
 
+
 //内容不少。。。。
 void Search::ClickSearchButton() {
 
     string SearchContent = this->TextEditSearchContent->toPlainText().toStdString();
-  
-    this->SearchKind = this->ComboBoxSearchKind->currentIndex();
+    
 
-    if (this->SearchKind == 0) {//通过证书号查找
-        SearchClass Sear = SearchClass(SearchContent, "CertID", 1);
-        Sear.toSearch();
-
-        
+    SearchClass Sear1 = SearchClass(SearchContent, SearchKind[this->ComboBoxSearchKind->currentIndex()], 1);
+    //SearchClass Sear2 = SearchClass(SearchContent, "CertID", 1);
+    Sear1.toSearch();
 
 
-    }
+    this->LabelCert->show();
+    this->LabelCertID->show();
+    this->LabelClientName->show();
+    this->LabelCertState->show();
+    this->LineEditCertID->show();
+    this->LineEditClientName->show();
+    this->LineEditCertState->show();
+    this->TextEditCert->show();
+
+
+    this->LineEditCertID->setText(QString::fromStdString(Sear1.certificateTable[0].CertID));
+
+    this->TextEditCert->setText(QString::fromStdString(Sear1.certificateTable[0].Certificate));
+
+    this->LineEditClientName->setText(QString::fromStdString(Sear1.certificateTable[0].ClientName)); 
+
+    
+    //this->LineEditCertState->setText(QString::fromStdString(Sear1.certificateTable[0].CertID));
+
+
+    //}
 
 
 

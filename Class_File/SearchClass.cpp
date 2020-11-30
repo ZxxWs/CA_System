@@ -13,6 +13,7 @@ SearchClass::SearchClass(string key, string keyName, int tag) {
 	this->SearchTag = tag;
 }
 
+//
 int SearchClass::setData(string key, string keyName, int tag)
 {
 	this->SearchKey = key;
@@ -25,7 +26,10 @@ int SearchClass::toSearch() {	//返回0：失败,返回1：查询失败,返回5：查询成功
 
 	if (ConnectDatabase()) {
 
-		string Query = "select * from "+ SearchKind[this->SearchTag]+" where " + this->SearchKeyName + " = " + this->SearchKey;//构建查询语句
+		string Query = "select * from "+ SearchTable[this->SearchTag]+" where " + this->SearchKeyName + " = '" + this->SearchKey+"'";//构建查询语句
+
+		this->tips = Query;//测试用于
+
 		sprintf_s(query, &Query[0]); //转存查询语句
 		mysql_query(mysql, "set names utf8"); //设置编码格式
 
@@ -42,7 +46,8 @@ int SearchClass::toSearch() {	//返回0：失败,返回1：查询失败,返回5：查询成功
 
 		if (this->SearchTag == 0) {//查询Login表
 			
-			for (int i = 0; column = mysql_fetch_row(res); i++) {
+			for (int i = 0; column = mysql_fetch_row(res); i++){ //判断是否为空，如果不判断话程序会直接卡死
+			
 				this->UserClassList[i].UserName=column[0];
 				this->UserClassList[i].UserPassWord = column[1];
 				this->UserClassList[i].UserTag = stoi(column[2]);
@@ -60,19 +65,10 @@ int SearchClass::toSearch() {	//返回0：失败,返回1：查询失败,返回5：查询成功
 				this->certificateTable[i].CertID = column[0];
 				this->certificateTable[i].ClientKey = column[1];
 				this->certificateTable[i].Certificate = column[5];
-				this->certificateTable[i].ClientName = column[6];
+				//this->certificateTable[i].ClientName = column[6];
 				//this->certificateTable[i].ClientKey = column[1];
 				//this->certificateTable[i].ClientKey = column[1];
 
-				string CertID;
-				string ClientKey;
-				string CAPublicKey;
-				string CAPrivateKey;
-				string Certificate;
-				string ClientName;
-				time_t CreateTime;
-				time_t DieTime;
-				time_t DeleteTime;
 			}
 			return 5;
 		}

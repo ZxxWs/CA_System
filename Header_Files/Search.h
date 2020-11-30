@@ -15,8 +15,17 @@ public:
     QPushButton* ButtonExit;
     QPushButton* ButtonToSearch;
     QLabel* LabelUserName;
+    QLabel* LabelCertID;
+    QLabel* LabelCert;
+    QLabel* LabelCertState;
+    QLabel* LabelClientName;
+    QLineEdit* LineEditCertID;
+    QLineEdit* LineEditClientName;
+    QLineEdit* LineEditCertState;
     QComboBox* ComboBoxSearchKind;
     QTextEdit* TextEditSearchContent;
+    QTextEdit* TextEditCert;
+
     QLabel* lab;//用于测试的lab
 
 public slots:
@@ -36,7 +45,7 @@ signals:
 
 protected:
     void closeEvent(QCloseEvent* event);//关闭界面的逻辑，主要是给上个界面来传递参数
-    int SearchKind;//查找方式
-
+    //int SearchKind;//查找方式
+    string SearchKind[3] = { "CertID","","" };//查找方式
 
 };
