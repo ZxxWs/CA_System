@@ -64,10 +64,10 @@ int SearchClass::toSearch() {	//返回0：失败,返回1：查询失败,返回5：查询成功
 			for (int i = 0; column = mysql_fetch_row(res); i++) {
 				this->certificateTable[i].CertID = column[0];
 				this->certificateTable[i].ClientKey = column[1];
-				this->certificateTable[i].Certificate = column[5];
-				//this->certificateTable[i].ClientName = column[6];
-				//this->certificateTable[i].ClientKey = column[1];
-				//this->certificateTable[i].ClientKey = column[1];
+				this->certificateTable[i].Certificate = column[2];
+				this->certificateTable[i].ClientName = column[3];
+				this->certificateTable[i].CreateTime = column[4];
+				this->certificateTable[i].DieTime = column[5];
 
 			}
 			return 5;
@@ -78,8 +78,11 @@ int SearchClass::toSearch() {	//返回0：失败,返回1：查询失败,返回5：查询成功
 
 				this->dieCertificateTable[i].CertID = column[0];
 				this->dieCertificateTable[i].ClientKey = column[1];
-				this->dieCertificateTable[i].Certificate = column[5];
-				this->dieCertificateTable[i].ClientName = column[6];
+				this->dieCertificateTable[i].Certificate = column[2];
+				this->dieCertificateTable[i].ClientName = column[3];
+				this->dieCertificateTable[i].CreateTime = column[4];
+				this->dieCertificateTable[i].DieTime = column[5];
+				this->dieCertificateTable[i].DeleteTime = column[6];
 
 			}
 			return 5;

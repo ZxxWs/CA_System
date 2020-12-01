@@ -18,7 +18,7 @@
     <rect>
      <x>50</x>
      <y>30</y>
-     <width>91</width>
+     <width>221</width>
      <height>31</height>
     </rect>
    </property>
@@ -95,14 +95,14 @@
     </rect>
    </property>
    <property name="text">
-    <string>未设计</string>
+    <string/>
    </property>
   </widget>
   <widget class="QPushButton" name="ButtonApplyFor">
    <property name="geometry">
     <rect>
-     <x>690</x>
-     <y>40</y>
+     <x>280</x>
+     <y>30</y>
      <width>131</width>
      <height>51</height>
     </rect>
@@ -114,8 +114,8 @@
   <widget class="QPushButton" name="ButtonExit">
    <property name="geometry">
     <rect>
-     <x>870</x>
-     <y>40</y>
+     <x>460</x>
+     <y>30</y>
      <width>131</width>
      <height>51</height>
     </rect>
@@ -140,8 +140,8 @@
   <widget class="QLabel" name="LabelCertID">
    <property name="geometry">
     <rect>
-     <x>660</x>
-     <y>180</y>
+     <x>670</x>
+     <y>50</y>
      <width>72</width>
      <height>15</height>
     </rect>
@@ -153,8 +153,8 @@
   <widget class="QLabel" name="LabelCert">
    <property name="geometry">
     <rect>
-     <x>660</x>
-     <y>240</y>
+     <x>670</x>
+     <y>110</y>
      <width>72</width>
      <height>15</height>
     </rect>
@@ -167,7 +167,7 @@
    <property name="geometry">
     <rect>
      <x>750</x>
-     <y>180</y>
+     <y>50</y>
      <width>251</width>
      <height>31</height>
     </rect>
@@ -177,7 +177,7 @@
    <property name="geometry">
     <rect>
      <x>750</x>
-     <y>240</y>
+     <y>110</y>
      <width>251</width>
      <height>161</height>
     </rect>
@@ -186,8 +186,8 @@
   <widget class="QLabel" name="LabelCertState">
    <property name="geometry">
     <rect>
-     <x>660</x>
-     <y>490</y>
+     <x>670</x>
+     <y>450</y>
      <width>71</width>
      <height>20</height>
     </rect>
@@ -199,8 +199,8 @@
   <widget class="QLabel" name="LabelClientName">
    <property name="geometry">
     <rect>
-     <x>660</x>
-     <y>430</y>
+     <x>670</x>
+     <y>300</y>
      <width>71</width>
      <height>20</height>
     </rect>
@@ -213,7 +213,7 @@
    <property name="geometry">
     <rect>
      <x>750</x>
-     <y>430</y>
+     <y>300</y>
      <width>251</width>
      <height>31</height>
     </rect>
@@ -223,7 +223,66 @@
    <property name="geometry">
     <rect>
      <x>750</x>
-     <y>480</y>
+     <y>450</y>
+     <width>251</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="ButtonDelete">
+   <property name="geometry">
+    <rect>
+     <x>810</x>
+     <y>550</y>
+     <width>131</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>删除此证书</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LabelCertCreateTime">
+   <property name="geometry">
+    <rect>
+     <x>670</x>
+     <y>350</y>
+     <width>71</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>创建时间：</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="LineEditCertCreateTime">
+   <property name="geometry">
+    <rect>
+     <x>750</x>
+     <y>350</y>
+     <width>251</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="LabelCertDieTime">
+   <property name="geometry">
+    <rect>
+     <x>670</x>
+     <y>400</y>
+     <width>71</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>到期时间：</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="LineEditCertDieTime">
+   <property name="geometry">
+    <rect>
+     <x>750</x>
+     <y>400</y>
      <width>251</width>
      <height>31</height>
     </rect>

@@ -55,20 +55,22 @@ int CreateCertificate::Create() {
 
     //----------------------设置数据库插入数据时间-----------------------
     //long转string
+    time_t now;
+    time(&now);
     ostringstream os;
-    os << time_t(0);
-    string strCreateTime;
-    istringstream is(os.str());
-    is >> strCreateTime;
-    this->CertTable.CreateTime = strCreateTime;
-
-
     ostringstream os2;
-    os2 << time_t(31536000L);
+    os << now;
+    os2 << (now+31536000L);
+    string strCreateTime;
     string strDieTime;
-    istringstream is2(os.str());
-    is2 >> strCreateTime;
+    istringstream is(os.str());
+    istringstream is2(os2.str());
+    is >> strCreateTime;
+    is2 >> strDieTime;
+
+    this->CertTable.CreateTime = strCreateTime;
     this->CertTable.DieTime = strDieTime;
+
     //----------------------设置数据库插入数据时间-----------------------
 
     //现在我们需要用我们产生较早的关键，为我们的证书的公钥：

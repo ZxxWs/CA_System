@@ -1,11 +1,14 @@
 #pragma execution_character_set("UTF-8")//用于qt的编码，如果没有，界面会有中文乱码
-#include "qpushbutton.h"
+
 #include <QtWidgets/QMainWindow>
 #include "../Class_File/UserClass.h"
 #include "../Class_File/SearchClass.h"
+#include "../Class_File/DeleteClass.h"
 #include "../Header_Files/Search.h"
 #include "../Header_Files/ApplyFor.h"
 #include "qstring.h"
+#include "qpushbutton.h"
+#include "../Class_File/InsertClass.h"
 
 using namespace std;
 
@@ -18,8 +21,11 @@ Search::Search(UserClass nowUser,QWidget* parent)
     this->ButtonClearnText = ui.ButtonClearnText;
     this->ButtonExit = ui.ButtonExit;
     this->ButtonToSearch = ui.ButtonToSearch;
+    this->ButtonDelete = ui.ButtonDelete;
     this->LabelUserName = ui.LabelUserName;
     this->LabelCertState = ui.LabelCertState;
+    this->LabelCertCreateTime = ui.LabelCertCreateTime;
+    this->LabelCertDieTime = ui.LabelCertDieTime;
     this->LabelCert = ui.LabelCert;
     this->LabelCertID = ui.LabelCertID;
     this->LabelClientName = ui.LabelClientName;
@@ -28,21 +34,19 @@ Search::Search(UserClass nowUser,QWidget* parent)
     this->TextEditCert = ui.TextEditCert;
     this->LineEditCertID = ui.LineEditCertID;
     this->LineEditClientName = ui.LineEditClientName;
+    this->LineEditCertCreateTime = ui.LineEditCertCreateTime;
+    this->LineEditCertDieTime = ui.LineEditCertDieTime;
     this->LineEditCertState = ui.LineEditCertState;
 
-    this->LabelCert->hide();
-    this->LabelCertID->hide();
-    this->LabelClientName->hide();
-    this->LabelCertState->hide();
-    this->LineEditCertID->hide();
-    this->LineEditClientName->hide();
-    this->LineEditCertState->hide();
-    this->TextEditCert->hide();
+    HideOrShow(0);
 
+    if (nowUser.UserTag != 0) {//如果用户不是普通用户，不显示申请按钮
+        this->ButtonApplyFor->hide();
+    }
 
     this->lab = ui.label;   //用于测试的label
+    
     this->NowUser = nowUser;
-
     this->LabelUserName->setText(QString::fromStdString("用户：" + NowUser.UserName));
 
     QStringList str;
@@ -53,50 +57,50 @@ Search::Search(UserClass nowUser,QWidget* parent)
     connect(ui.ButtonExit, SIGNAL(clicked()), this, SLOT(ClickEixtButton()));
     connect(ui.ButtonApplyFor, SIGNAL(clicked()), this, SLOT(ClickApplyForButton()));
     connect(ui.ButtonClearnText, SIGNAL(clicked()), this, SLOT(ClickClearnTextButton()));
+    connect(ui.ButtonDelete, SIGNAL(clicked()), this, SLOT(ClickDeleteButton()));
 }
 
 
 //内容不少。。。。
 void Search::ClickSearchButton() {
 
+    HideOrShow(0);
     string SearchContent = this->TextEditSearchContent->toPlainText().toStdString();
     
-
-    SearchClass Sear1 = SearchClass(SearchContent, SearchKind[this->ComboBoxSearchKind->currentIndex()], 1);
-    //SearchClass Sear2 = SearchClass(SearchContent, "CertID", 1);
-    Sear1.toSearch();
+    SearchClass Sear = SearchClass(SearchContent, SearchKind[this->ComboBoxSearchKind->currentIndex()], 1);
+    Sear.toSearch();
 
 
-    this->LabelCert->show();
-    this->LabelCertID->show();
-    this->LabelClientName->show();
-    this->LabelCertState->show();
-    this->LineEditCertID->show();
-    this->LineEditClientName->show();
-    this->LineEditCertState->show();
-    this->TextEditCert->show();
+    this->delCert = Sear.certificateTable[0];
+    if (delCert.CertID == "") {//第一个表为空
+        Sear.setData(SearchContent, SearchKind[this->ComboBoxSearchKind->currentIndex()], 2);
+        Sear.toSearch();
+        this->delCert = Sear.dieCertificateTable[0];
+        //this->ButtonDelete->show();
+    }
 
 
-    this->LineEditCertID->setText(QString::fromStdString(Sear1.certificateTable[0].CertID));
+    if(delCert.CertID!=""){
+        HideOrShow(1);
+        this->LineEditCertID->setText(QString::fromStdString(this->delCert.CertID));
+        this->TextEditCert->setText(QString::fromStdString(this->delCert.Certificate));
+        this->LineEditClientName->setText(QString::fromStdString(this->delCert.ClientName));
 
-    this->TextEditCert->setText(QString::fromStdString(Sear1.certificateTable[0].Certificate));
+        this->LineEditCertCreateTime->setText(QString::fromStdString(shiftTime(this->delCert.CreateTime)));
+        this->LineEditCertDieTime->setText(QString::fromStdString(shiftTime(this->delCert.DieTime)));
 
-    this->LineEditClientName->setText(QString::fromStdString(Sear1.certificateTable[0].ClientName)); 
-
-    
-    //this->LineEditCertState->setText(QString::fromStdString(Sear1.certificateTable[0].CertID));
-
-
-    //}
-
-
+        string str = shiftTime(this->delCert.DeleteTime);
+        if (this->delCert.DeleteTime != "") {
+            str += "被删除";
+        }
+        this->LineEditCertState->setText(QString::fromStdString(str));
+    }
 
 
-
-    this->lab->setText(this->TextEditSearchContent->toPlainText());
-
+    if (this->delCert.DeleteTime == ""&&(this->NowUser.UserName==this->delCert.ClientName||this->NowUser.UserTag==2)) {
+        this->ButtonDelete->show();
+    }
 }
-
 
 
 void Search::ClickApplyForButton() {
@@ -109,11 +113,9 @@ void Search::ClickApplyForButton() {
 
 }
 
-
 void Search::ClickClearnTextButton() {
     this->TextEditSearchContent->setText("");
 }
-
 
 void Search::ReShowWindow() {
     this->show();
@@ -125,12 +127,88 @@ void Search::ClickEixtButton() {
     this->close();
 }
 
-
 void Search::closeEvent(QCloseEvent* event) {
 
     emit sendsignal(); // 给父界面传递被关闭信息
+}
+
+string Search::shiftTime(string tm)
+{
+    if (tm == "") {
+        return "证书未过期";
+    }
+
+    //参数为数据库里的string类型的时间
+    string returnTm;
+    long longTm = atoi(tm.c_str());
+    time_t _tTm = time_t(longTm);
+    struct tm* stTm = localtime(&_tTm);
+
+    returnTm = to_string(stTm->tm_year + 1900)+"年/";
+    returnTm += to_string(stTm->tm_mon + 1) + "月/";
+    returnTm += to_string(stTm->tm_mday)+"日  ";
+    returnTm += to_string(stTm->tm_hour) + ":";
+    returnTm += to_string(stTm->tm_min) + ":";
+    returnTm += to_string(stTm->tm_sec);
+
+    return returnTm;
+}
+
+void Search::HideOrShow(int tag)
+{
+    if(tag==0){
+    
+        this->LabelCert->hide();
+        this->LabelCertID->hide();
+        this->LabelClientName->hide();
+        this->LabelCertCreateTime->hide();
+        this->LabelCertDieTime->hide();
+        this->LabelCertState->hide();
+        this->LineEditCertID->hide();
+        this->LineEditClientName->hide();
+        this->LineEditCertCreateTime->hide();
+        this->LineEditCertDieTime->hide();
+        this->LineEditCertState->hide();
+        this->TextEditCert->hide();
+        this->ButtonDelete->hide();
+    
+    }
+    else
+    {
+        this->LabelCert->show();
+        this->LabelCertID->show();
+        this->LabelClientName->show();
+        this->LabelCertCreateTime->show();
+        this->LabelCertDieTime->show();
+        this->LabelCertState->show();
+        this->LineEditCertID->show();
+        this->LineEditClientName->show();
+        this->LineEditCertCreateTime->show();
+        this->LineEditCertDieTime->show();
+        this->LineEditCertState->show();
+        this->TextEditCert->show();
+    }
+}
+
+void Search::ClickDeleteButton() {
+
+
+    time_t now;
+    time(&now);
+    ostringstream os;
+    os << now;
+    string strDelTime;
+    istringstream is(os.str());
+    is >> strDelTime;
+    this->delCert.DeleteTime = strDelTime;
+
+    DeleteClass Del = DeleteClass(this->delCert);
+    InsertClass Ins = InsertClass(this->delCert,1);
 
 }
+
+
+
 
 
 

@@ -38,15 +38,15 @@ void CA_System::ClickLogInButton() {
     int t = getInputDate();
     if ( t== 0) {
 
-
         UserClass LogUser = UserClass();
         SearchClass s = SearchClass(NowUser.UserName, "username", 0);
+        s.toSearch();
 
-        if (NowUser.UserPassWord == s.UserClassList[0].UserPassWord) {
+        if (NowUser.UserPassWord == s.UserClassList[0].UserPassWord&& NowUser.UserTag == s.UserClassList[0].UserTag) {
 
             NowUser = s.UserClassList[0];
-            Search* searchWin = new Search(NowUser, this);
-            connect(searchWin, SIGNAL(sendsignal()), this, SLOT(ReShowWindow()));//当点击子界面EixtButton，调用主界面的reshow()函数-----未完成
+            Search* searchWin = new Search(s.UserClassList[0], this);
+            connect(searchWin, SIGNAL(sendsignal()), this, SLOT(ReShowWindow()));
             searchWin->show();
             //如果登录成功，跳转Search界面:0普通用户，1游客，2管理员
             this->hide();
@@ -59,7 +59,7 @@ void CA_System::ClickLogInButton() {
 
 
     }
-    else if(t==2)//游客登录(有点问题）
+    else if(t==2)
     {
         Search* searchWin = new Search(NowUser, this);
         connect(searchWin, SIGNAL(sendsignal()), this, SLOT(ReShowWindow()));//当点击子界面EixtButton，调用主界面的reshow()函数-----未完成
@@ -69,11 +69,7 @@ void CA_System::ClickLogInButton() {
     }
    
 
-    //ApplyFor* applyForWin =new ApplyFor(LogUser, this);
-    //connect(applyForWin, SIGNAL(sendsignal()), this, SLOT(ReShowThis()));//当点击子界面EixtButton，调用主界面的reshow()函数-----未完成
-    //applyForWin->show();
-
-    //CreateKeyPair c = CreateKeyPair();
+    
 
 }
 
@@ -99,7 +95,7 @@ int CA_System::getInputDate() {
 
     if (this->NowUser.UserTag == 1) {
         this->NowUser.UserName = "游客";
-        this->NowUser.UserPassWord = "";
+        this->NowUser.UserTag = 1;
         return 2;
     }
     else if (this->NowUser.UserName == "" || this->NowUser.UserPassWord == "") {

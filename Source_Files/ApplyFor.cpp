@@ -97,8 +97,8 @@ void ApplyFor::ClickCreateCertificateButton() {
     this->TextEditCertificate->show();
     this->LabelCertificate->show();
 
-    //this->TextEditCertificate->setText(QString::fromStdString(Cert.getCertString()));
-    this->TextEditCertificate->setText(QString::fromStdString(Cert.getCertTable().CreateTime));
+    this->TextEditCertificate->setText(QString::fromStdString(Cert.getCertString()));
+    //this->TextEditCertificate->setText(QString::fromStdString(Ins.tips));
 }
 
 void ApplyFor::ClickSelectKeyPairPathButton() {

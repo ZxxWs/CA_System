@@ -28,6 +28,7 @@ InsertClass::InsertClass(UserClass insertUser,int tag) {
 
 				this->tips = str;
 
+
 				sprintf_s(AddQuery, &str[0]);
 				if (mysql_query(AddMysql, AddQuery))        //执行SQL语句  
 				{
@@ -73,7 +74,7 @@ InsertClass::InsertClass(CertificateTable insertCertificate, int tag) {
 				+ insertCertificate.Certificate + "','"
 				+ insertCertificate.ClientName + "','"
 				+ insertCertificate.CreateTime + "','"
-				+insertCertificate.DieTime + "','"
+				+insertCertificate.DieTime + 
 				"')";
 
 			this->tips = str;
@@ -87,6 +88,32 @@ InsertClass::InsertClass(CertificateTable insertCertificate, int tag) {
 			else
 			{
 				this->tips = "生成成功";
+				return;
+			}
+		}
+		else//往删除表插入
+		{
+			string str = "insert into diecertificatetable  (CertID,ClientKey,Certificate,ClientName,CreateTime,DieTime,DeleteTime) values ('"
+				+ insertCertificate.CertID + "','"
+				+ insertCertificate.ClientKey + "','"
+				+ insertCertificate.Certificate + "','"
+				+ insertCertificate.ClientName + "','"
+				+ insertCertificate.CreateTime + "','"
+				+ insertCertificate.DieTime + "','"
+				+ insertCertificate.DeleteTime +
+				"')";
+
+			this->tips = str;
+
+			sprintf_s(AddQuery, &str[0]);
+			if (mysql_query(AddMysql, AddQuery))        //执行SQL语句  
+			{
+				this->tips = "失败。";
+				return;
+			}
+			else
+			{
+				this->tips = "成功";
 				return;
 			}
 		}
