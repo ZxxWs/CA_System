@@ -15,9 +15,8 @@ class InsertClass
 {
 public:
 	InsertClass();
-	//void InsUser(UserClass insertUser, int tag);
-	InsertClass(UserClass insertUser, int tag);
-	InsertClass(CertificateTable insertCertificate,int tag);
+	void Ins(UserClass insertUser, int tag);
+	void Ins(CertificateTable insertCertificate,int tag);
 
 	string tips;//用于返回插入提示
 
@@ -27,12 +26,8 @@ private:
 
 	MYSQL* AddMysql = new MYSQL; //mysql连接  
 	MYSQL_RES* AddRes; //这个结构代表返回行的一个查询结果集  
-	MYSQL_ROW AddColumn; //一个行数据的类型安全(type-safe)的表示，表示数据行的列  
+	MYSQL_ROW AddColumn; //一个行数据的类型安全(type-safe)的表示，表示数据行的列 
 	char AddQuery[3000]; //查询语句
-	//int AddTag;//用这个Tag区分是添加班级还是添加学生(0:班级，1：学生）
-	//string StringTag;//用于记录添加过程的问题
-	//string AddGradeList[9999];//班级列表
-	//int AddGradeListLen = 0;
 
 	bool ConnectDatabase();
 };

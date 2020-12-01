@@ -10,9 +10,9 @@
 class DeleteClass
 {
 public:
-	DeleteClass();
-	DeleteClass(CertificateTable cert);
 
+	DeleteClass();
+	void Del(CertificateTable cert);
 
 private:
 	MYSQL* DelMysql = new MYSQL; //mysql¡¨Ω”  

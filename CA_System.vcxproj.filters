@@ -5,10 +5,6 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -27,6 +23,10 @@
     </Filter>
     <Filter Include="Class Files">
       <UniqueIdentifier>{6e9f06f2-80f1-441f-ba8e-7bbca8978ee8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -69,6 +69,9 @@
     <ClCompile Include="Class_File\DeleteClass.cpp">
       <Filter>Class Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source_Files\PassLimits.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Header_Files\CA_System.h">
@@ -94,13 +97,10 @@
     <QtUic Include="UI_Files\Search.ui">
       <Filter>UI_Files</Filter>
     </QtUic>
-    <QtUic Include="UI_Files\Delete.ui">
-      <Filter>UI_Files</Filter>
-    </QtUic>
-    <QtUic Include="UI_Files\StrangerSearch.ui">
-      <Filter>UI_Files</Filter>
-    </QtUic>
     <QtUic Include="UI_Files\SignIn.ui">
+      <Filter>UI_Files</Filter>
+    </QtUic>
+    <QtUic Include="UI_Files\PassLimits.ui">
       <Filter>UI_Files</Filter>
     </QtUic>
   </ItemGroup>
@@ -125,6 +125,9 @@
     </ClInclude>
     <ClInclude Include="Class_File\DeleteClass.h">
       <Filter>Class Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header_Files\PassLimits.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -13,7 +13,6 @@ SearchClass::SearchClass(string key, string keyName, int tag) {
 	this->SearchTag = tag;
 }
 
-//
 int SearchClass::setData(string key, string keyName, int tag)
 {
 	this->SearchKey = key;
@@ -66,8 +65,10 @@ int SearchClass::toSearch() {	//返回0：失败,返回1：查询失败,返回5：查询成功
 				this->certificateTable[i].ClientKey = column[1];
 				this->certificateTable[i].Certificate = column[2];
 				this->certificateTable[i].ClientName = column[3];
-				this->certificateTable[i].CreateTime = column[4];
-				this->certificateTable[i].DieTime = column[5];
+				this->certificateTable[i].setTime(column[4],1);
+				this->certificateTable[i].setTime(column[5],2);
+				this->certificateTable[i].setTime(column[6], 3);
+
 
 			}
 			return 5;
@@ -80,9 +81,9 @@ int SearchClass::toSearch() {	//返回0：失败,返回1：查询失败,返回5：查询成功
 				this->dieCertificateTable[i].ClientKey = column[1];
 				this->dieCertificateTable[i].Certificate = column[2];
 				this->dieCertificateTable[i].ClientName = column[3];
-				this->dieCertificateTable[i].CreateTime = column[4];
-				this->dieCertificateTable[i].DieTime = column[5];
-				this->dieCertificateTable[i].DeleteTime = column[6];
+				this->dieCertificateTable[i].setTime(column[4], 1);
+				this->dieCertificateTable[i].setTime(column[5], 2);
+				this->dieCertificateTable[i].setTime(column[6], 3);
 
 			}
 			return 5;
@@ -96,6 +97,43 @@ int SearchClass::toSearch() {	//返回0：失败,返回1：查询失败,返回5：查询成功
 
 }
 
+int SearchClass::getFlash(long nowTime)
+{
+	int count=0;
+	if (ConnectDatabase()) {
+
+		string Query = "select * from certificatetable where  DieTime<="+to_string(nowTime);//构建查询语句
+
+		this->tips = Query;//测试用于
+
+		sprintf_s(query, &Query[0]); //转存查询语句
+		mysql_query(mysql, "set names utf8"); //设置编码格式
+
+		//返回0 查询成功，返回1查询失败  
+		if (mysql_query(mysql, query))    //执行SQL语句
+		{
+			return 0;//返回值设置的有问题
+		}
+		//获取结果集  
+		if (!(res = mysql_store_result(mysql)))   //获得sql语句结束后返回的结果集  
+		{
+			return 0;//返回值设置的有问题
+		}
+		for (; column = mysql_fetch_row(res); count++) {
+			this->certificateTable[count].CertID = column[0];
+			this->certificateTable[count].ClientKey = column[1];
+			this->certificateTable[count].Certificate = column[2];
+			this->certificateTable[count].ClientName = column[3];
+			this->certificateTable[count].setTime(column[4], 1);
+			this->certificateTable[count].setTime(column[5], 2);
+		}
+	}
+	else//查询失败返回值
+	{
+		return 0;
+	}
+	return count;
+}
 
 //连接数据库函数
 bool SearchClass::ConnectDatabase() {

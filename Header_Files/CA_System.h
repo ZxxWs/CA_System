@@ -11,8 +11,6 @@
 #include <random>
 using namespace std;
 
-
-
 class CA_System : public QMainWindow
 {
     Q_OBJECT
@@ -26,6 +24,7 @@ public:
     QLineEdit* LineEditUserPassWord;
     QComboBox* ComboBoxUserKind;
 
+
 public slots:
     void ClickLogInButton();
     void ClickSignInButton();
@@ -37,8 +36,7 @@ signals:
 
 private:
     Ui::CA_SystemClass ui;
-    int getInputDate();
-    UserClass NowUser;
-
+    int getInputDate();//获取输入的内容
+    UserClass NowUser;//当前界面的User对象
 
 };

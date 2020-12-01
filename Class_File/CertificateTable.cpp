@@ -5,19 +5,23 @@ CertificateTable::CertificateTable() {
 
 }
 
-time_t CertificateTable::getCreateTime()
+void CertificateTable::setTime(string tm, int tag)
 {
-    return time_t();
-}
 
-time_t CertificateTable::getDieTime()
-{
-    return time_t();
-}
-
-time_t CertificateTable::getDeleteTime()
-{
-    return time_t();
+	switch (tag)
+	{
+	case 1:
+		this->CreateTime = atoi(tm.c_str());
+		break;
+	case 2:
+		this->DieTime = atoi(tm.c_str());
+		break;
+	case 3:
+		this->DeleteTime = atoi(tm.c_str());
+		break;
+	default:
+		break;
+	}
 }
 
 

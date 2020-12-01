@@ -17,9 +17,9 @@ public:
     QPushButton* PushButtonSure;
     QPushButton* PushButtonBack;
     QComboBox* ComboBoxType;
-  /*  QLabel* LabelType;
     QLabel* LabelPass;
-    QLabel* LabelSurePass;
+    QLabel* LabelType;
+     /*QLabel* LabelSurePass;
     QLabel* LabelCompany;
     QLabel* LabelTEL;
     QLabel* LabelMail;

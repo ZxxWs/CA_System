@@ -5,12 +5,12 @@ DeleteClass::DeleteClass()
 
 }
 
-DeleteClass::DeleteClass(CertificateTable cert)
+void DeleteClass::Del(CertificateTable cert)
 {
-
 	if (ConnectDatabase()) {
 		string str = "delete from certificatetable where certid='" + cert.CertID + "';";
 		sprintf_s(DelQuery, &str[0]); //≤È—Ø”Ôæ‰
+
 		mysql_query(DelMysql, "set names utf8");
 		if (mysql_query(DelMysql, DelQuery))    //÷¥––SQL”Ôæ‰
 		{
@@ -23,8 +23,6 @@ DeleteClass::DeleteClass(CertificateTable cert)
 		}
 	}
 }
-
-
 
 bool DeleteClass::ConnectDatabase() {
 	//≥ı ºªØmysql  

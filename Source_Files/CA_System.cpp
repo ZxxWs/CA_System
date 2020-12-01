@@ -14,6 +14,7 @@ CA_System::CA_System(QWidget *parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
+
     this->LabelTips = ui.LabelTips;
     this->ButtonLogIn = ui.ButtonLogIn;
     this->ButtonSignIn = ui.ButtonSignIn;
@@ -21,13 +22,17 @@ CA_System::CA_System(QWidget *parent)
     this->LineEditUserPassWord = ui.LineEditUserPassWord;
     this->ComboBoxUserKind = ui.ComboBoxUserKind;
 
+    //填充下拉菜单--------------------------------
     QStringList str;
     str << "普通用户" << "游客" << "管理员";
-    ComboBoxUserKind->insertItems(3,str);//填充下拉菜单
+    ComboBoxUserKind->insertItems(3,str);
+    //填充下拉菜单--------------------------------
 
-    connect(ui.ButtonLogIn, SIGNAL(clicked()), this, SLOT(ClickLogInButton()));//将按钮和点击事件绑定
+
+    //将按钮和点击事件绑定-------------------------
+    connect(ui.ButtonLogIn, SIGNAL(clicked()), this, SLOT(ClickLogInButton()));
     connect(ui.ButtonSignIn, SIGNAL(clicked()), this, SLOT(ClickSignInButton()));
-
+    //将按钮和点击事件绑定-------------------------
 
 
 }
@@ -35,20 +40,23 @@ CA_System::CA_System(QWidget *parent)
 void CA_System::ClickLogInButton() {
 
 
-    int t = getInputDate();
+    int t = getInputDate();//获取输入内容
     if ( t== 0) {
 
         UserClass LogUser = UserClass();
+
         SearchClass s = SearchClass(NowUser.UserName, "username", 0);
         s.toSearch();
 
         if (NowUser.UserPassWord == s.UserClassList[0].UserPassWord&& NowUser.UserTag == s.UserClassList[0].UserTag) {
 
+
+            this->LabelTips->setText("");
             NowUser = s.UserClassList[0];
             Search* searchWin = new Search(s.UserClassList[0], this);
-            connect(searchWin, SIGNAL(sendsignal()), this, SLOT(ReShowWindow()));
+            connect(searchWin, SIGNAL(sendsignal()), this, SLOT(ReShowWindow()));//返回功能绑定，下个界面返回sendsignal，此界面searchWin，执行ReShowWindow
             searchWin->show();
-            //如果登录成功，跳转Search界面:0普通用户，1游客，2管理员
+            //////如果登录成功，跳转Search界面:0普通用户，1游客，2管理员
             this->hide();
 
         }
@@ -62,9 +70,8 @@ void CA_System::ClickLogInButton() {
     else if(t==2)
     {
         Search* searchWin = new Search(NowUser, this);
-        connect(searchWin, SIGNAL(sendsignal()), this, SLOT(ReShowWindow()));//当点击子界面EixtButton，调用主界面的reshow()函数-----未完成
+        connect(searchWin, SIGNAL(sendsignal()), this, SLOT(ReShowWindow()));
         searchWin->show();
-        //如果登录成功，跳转Search界面:0普通用户，1游客，2管理员
         this->hide();
     }
    
@@ -77,7 +84,7 @@ void CA_System::ClickSignInButton() {
 
     this->hide();
     SignIn* signIn = new SignIn(this);
-    connect(signIn, SIGNAL(sendsignal()), this, SLOT(ReShowWindow()));//将此界面的ReShowWindow（）与signIn界面的sendsignal绑定
+    connect(signIn, SIGNAL(sendsignal()), this, SLOT(ReShowWindow()));//将此界面的ReShowWindow（）与signIn界面的sendsignal()绑定
     signIn->show();
 
 }

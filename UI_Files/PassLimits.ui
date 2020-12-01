@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
+ <class>PassLimits</class>
+ <widget class="QWidget" name="PassLimits">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -13,6 +13,16 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <widget class="QTableView" name="TableView">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>100</y>
+     <width>951</width>
+     <height>381</height>
+    </rect>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

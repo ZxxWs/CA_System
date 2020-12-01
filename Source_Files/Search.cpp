@@ -37,69 +37,101 @@ Search::Search(UserClass nowUser,QWidget* parent)
     this->LineEditCertCreateTime = ui.LineEditCertCreateTime;
     this->LineEditCertDieTime = ui.LineEditCertDieTime;
     this->LineEditCertState = ui.LineEditCertState;
+    this->lab = ui.label;   //用于测试的label
 
     HideOrShow(0);
 
-    if (nowUser.UserTag != 0) {//如果用户不是普通用户，不显示申请按钮
+    if (nowUser.UserTag == 1) {//如果用户是游客，不显示申请按钮
         this->ButtonApplyFor->hide();
     }
+    else if (nowUser.UserTag == 2) {
+        this->ButtonApplyFor->setText("注册者审核");
+    }
 
-    this->lab = ui.label;   //用于测试的label
     
     this->NowUser = nowUser;
     this->LabelUserName->setText(QString::fromStdString("用户：" + NowUser.UserName));
 
     QStringList str;
-    str << "通过证书号查询" << "通过证书字符串查询" << "";
-    ComboBoxSearchKind->insertItems(3, str);//填充下拉菜单
+    str << "通过证书号查询" << "通过证书字符串查询" ;
+    ComboBoxSearchKind->insertItems(2, str);//填充下拉菜单
+
+    if (nowUser.UserTag == 0) {//用户可以查找自己的所有证书（未写
+        //ComboBoxSearchKind->addItem("查找自己的所有证书");
+    }
 
     connect(ui.ButtonToSearch, SIGNAL(clicked()), this, SLOT(ClickSearchButton()));//将按钮和点击事件绑定
     connect(ui.ButtonExit, SIGNAL(clicked()), this, SLOT(ClickEixtButton()));
     connect(ui.ButtonApplyFor, SIGNAL(clicked()), this, SLOT(ClickApplyForButton()));
     connect(ui.ButtonClearnText, SIGNAL(clicked()), this, SLOT(ClickClearnTextButton()));
     connect(ui.ButtonDelete, SIGNAL(clicked()), this, SLOT(ClickDeleteButton()));
-}
 
+}
 
 //内容不少。。。。
 void Search::ClickSearchButton() {
 
+    SearchClass sear;
+    DeleteClass del;
+    InsertClass ins;
+
+    {//在查询前先检索过期证书
+         
+        time_t now;
+        time(&now);
+        for (int i = 0; i < sear.getFlash(now); i++) {
+
+            sear.certificateTable[i].DeleteTime = sear.certificateTable[i].DieTime;
+
+            del.Del(sear.certificateTable[i]);
+            ins.Ins(sear.certificateTable[i], 1);
+        }
+    }
+
+
     HideOrShow(0);
+
     string SearchContent = this->TextEditSearchContent->toPlainText().toStdString();
     
-    SearchClass Sear = SearchClass(SearchContent, SearchKind[this->ComboBoxSearchKind->currentIndex()], 1);
-    Sear.toSearch();
+    sear.setData(SearchContent, SearchKind[this->ComboBoxSearchKind->currentIndex()], 1);
+    sear.toSearch();
 
 
-    this->delCert = Sear.certificateTable[0];
+    this->delCert = sear.certificateTable[0];
+
     if (delCert.CertID == "") {//第一个表为空
-        Sear.setData(SearchContent, SearchKind[this->ComboBoxSearchKind->currentIndex()], 2);
-        Sear.toSearch();
-        this->delCert = Sear.dieCertificateTable[0];
-        //this->ButtonDelete->show();
+        sear.setData(SearchContent, SearchKind[this->ComboBoxSearchKind->currentIndex()], 2);
+        sear.toSearch();
+        this->delCert = sear.dieCertificateTable[0];
     }
 
 
     if(delCert.CertID!=""){
         HideOrShow(1);
+
         this->LineEditCertID->setText(QString::fromStdString(this->delCert.CertID));
         this->TextEditCert->setText(QString::fromStdString(this->delCert.Certificate));
         this->LineEditClientName->setText(QString::fromStdString(this->delCert.ClientName));
 
         this->LineEditCertCreateTime->setText(QString::fromStdString(shiftTime(this->delCert.CreateTime)));
+
         this->LineEditCertDieTime->setText(QString::fromStdString(shiftTime(this->delCert.DieTime)));
 
         string str = shiftTime(this->delCert.DeleteTime);
-        if (this->delCert.DeleteTime != "") {
+        if (this->delCert.DeleteTime != 1) {
             str += "被删除";
         }
         this->LineEditCertState->setText(QString::fromStdString(str));
     }
+    else {
+        this->lab->setText("并未有此证书");
+    }
 
 
-    if (this->delCert.DeleteTime == ""&&(this->NowUser.UserName==this->delCert.ClientName||this->NowUser.UserTag==2)) {
+    if (this->delCert.DeleteTime == 1 &&(this->NowUser.UserName==this->delCert.ClientName||this->NowUser.UserTag==2)) {
         this->ButtonDelete->show();
     }
+
 }
 
 
@@ -132,16 +164,15 @@ void Search::closeEvent(QCloseEvent* event) {
     emit sendsignal(); // 给父界面传递被关闭信息
 }
 
-string Search::shiftTime(string tm)
+string Search::shiftTime(long tm)
 {
-    if (tm == "") {
+    if (tm == 1) {
         return "证书未过期";
     }
 
     //参数为数据库里的string类型的时间
     string returnTm;
-    long longTm = atoi(tm.c_str());
-    time_t _tTm = time_t(longTm);
+    time_t _tTm = time_t(tm);
     struct tm* stTm = localtime(&_tTm);
 
     returnTm = to_string(stTm->tm_year + 1900)+"年/";
@@ -195,20 +226,13 @@ void Search::ClickDeleteButton() {
 
     time_t now;
     time(&now);
-    ostringstream os;
-    os << now;
-    string strDelTime;
-    istringstream is(os.str());
-    is >> strDelTime;
-    this->delCert.DeleteTime = strDelTime;
+    this->delCert.DeleteTime = now;
 
-    DeleteClass Del = DeleteClass(this->delCert);
-    InsertClass Ins = InsertClass(this->delCert,1);
+    DeleteClass del;
+    del.Del(this->delCert);
+    InsertClass ins;
+    ins.Ins(this->delCert, 1);
 
 }
-
-
-
-
 
 

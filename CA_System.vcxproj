@@ -106,6 +106,7 @@
     <ClCompile Include="Class_File\SearchClass.cpp" />
     <ClCompile Include="Source_Files\ApplyFor.cpp" />
     <ClCompile Include="Source_Files\CA_System.cpp" />
+    <ClCompile Include="Source_Files\PassLimits.cpp" />
     <ClCompile Include="Source_Files\Search.cpp" />
     <ClCompile Include="Source_Files\SignIn.cpp" />
     <QtRcc Include="CA_System.qrc" />
@@ -117,10 +118,9 @@
   <ItemGroup>
     <QtUic Include="UI_Files\ApplyFor.ui" />
     <QtUic Include="UI_Files\CA_System.ui" />
-    <QtUic Include="UI_Files\Delete.ui" />
     <QtUic Include="UI_Files\SignIn.ui" />
     <QtUic Include="UI_Files\Search.ui" />
-    <QtUic Include="UI_Files\StrangerSearch.ui" />
+    <QtUic Include="UI_Files\PassLimits.ui" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Class_File\CertificateTable.h" />
@@ -130,6 +130,7 @@
     <ClInclude Include="Class_File\InsertClass.h" />
     <ClInclude Include="Class_File\UserClass.h" />
     <ClInclude Include="Class_File\SearchClass.h" />
+    <ClInclude Include="Header_Files\PassLimits.h" />
     <QtMoc Include="Header_Files\SignIn.h" />
     <QtMoc Include="Header_Files\ApplyFor.h" />
     <QtMoc Include="Header_Files\Search.h" />

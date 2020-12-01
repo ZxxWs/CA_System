@@ -13,18 +13,26 @@ InsertClass::InsertClass()
 
 
 //如果tag=0,则是新增，需要检查重复名
-InsertClass::InsertClass(UserClass insertUser,int tag) {
+void InsertClass::Ins(UserClass insertUser,int tag) {
 
 	this->tips = "false";
 
 	if (ConnectDatabase()) {
 
 		if (tag == 0) {
+
 			SearchClass search = SearchClass(insertUser.UserName, "UserName", 1);
+			search.toSearch();
+
 			if (search.UserClassList[0].UserName != insertUser.UserName) {
 
-
-				string str = "insert into usertable  (UserName,UserPassWord,UserTag,UserTEL,UserCompany,UserRemark) values ('" + insertUser.UserName + "','" + insertUser.UserPassWord + "','" + to_string(insertUser.UserTag) + "','" + insertUser.UserTEL + "','" + insertUser.UserCompany + "','" + insertUser.UserRemark + "')";
+				string str = "insert into usertable  (UserName,UserPassWord,UserTag,UserTEL,UserCompany,UserRemark) values ('" 
+					+ insertUser.UserName + "','" 
+					+ insertUser.UserPassWord + "','" 
+					+ to_string(insertUser.UserTag) + "','" 
+					+ insertUser.UserTEL + "','" 
+					+ insertUser.UserCompany + "','" 
+					+ insertUser.UserRemark + "')";
 
 				this->tips = str;
 
@@ -45,11 +53,9 @@ InsertClass::InsertClass(UserClass insertUser,int tag) {
 			{
 				this->tips = "用户名重复";
 			}
-
 		}
 		else
 		{
-
 		}
 
 	}
@@ -62,7 +68,7 @@ InsertClass::InsertClass(UserClass insertUser,int tag) {
 
 
 //tag=0插入证书表，tag=1插入删除表
-InsertClass::InsertClass(CertificateTable insertCertificate, int tag) {
+void InsertClass::Ins(CertificateTable insertCertificate, int tag) {
 
 	this->tips = "false";
 	if (ConnectDatabase()) {
@@ -72,10 +78,10 @@ InsertClass::InsertClass(CertificateTable insertCertificate, int tag) {
 				+ insertCertificate.CertID + "','" 
 				+ insertCertificate.ClientKey + "','" 
 				+ insertCertificate.Certificate + "','"
-				+ insertCertificate.ClientName + "','"
-				+ insertCertificate.CreateTime + "','"
-				+insertCertificate.DieTime + 
-				"')";
+				+ insertCertificate.ClientName + "',"
+				+ to_string(insertCertificate.CreateTime) + ","
+				+ to_string(insertCertificate.DieTime) +
+				")";
 
 			this->tips = str;
 
@@ -97,11 +103,11 @@ InsertClass::InsertClass(CertificateTable insertCertificate, int tag) {
 				+ insertCertificate.CertID + "','"
 				+ insertCertificate.ClientKey + "','"
 				+ insertCertificate.Certificate + "','"
-				+ insertCertificate.ClientName + "','"
-				+ insertCertificate.CreateTime + "','"
-				+ insertCertificate.DieTime + "','"
-				+ insertCertificate.DeleteTime +
-				"')";
+				+ insertCertificate.ClientName + "',"
+				+ to_string(insertCertificate.CreateTime) + ","
+				+ to_string(insertCertificate.DieTime) + ","
+				+ to_string(insertCertificate.DeleteTime) +
+				")";
 
 			this->tips = str;
 

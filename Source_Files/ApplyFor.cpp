@@ -69,7 +69,7 @@ void ApplyFor::ClickCreateKeyPairButton() {
 
     string strPath;
     strPath = this->LineEditSelectKeyPairPath->displayText().toStdString()+"/";
-    CreateKeyPair keyPair = CreateKeyPair(strPath,true);
+    CreateKeyPair keyPair = CreateKeyPair(strPath);
 
     this->TextEditPublicKey->show();
     this->TextEditPrivateKey->show();
@@ -90,7 +90,8 @@ void ApplyFor::ClickCreateCertificateButton() {
     CreateCertificate Cert = CreateCertificate(savePath,PublicPath,this->NowUser.UserName);
     Cert.Create();
 
-    InsertClass  Ins = InsertClass(Cert.getCertTable(), 0);
+    InsertClass  ins;
+    ins.Ins(Cert.getCertTable(), 0);
 
 
 
@@ -130,60 +131,6 @@ void ApplyFor::ClickSelectCertificatePathButton()
     this->LineEditSelectCertificatePath->setText(dirPath);
 }
 
-//void ApplyFor::ClickSelectPublicKeyPathButton() {
-//
-//
-//    //此方法为网上查找-----------------------------------------
-//    QString file_full, file_name, file_path;
-//    QFileInfo fi;
-//    file_full = QFileDialog::getOpenFileName(this);
-//    fi = QFileInfo(file_full);
-//    file_name = fi.fileName();
-//    file_path = fi.absolutePath();
-//    //fi.fil
-//    //this->TextEditPublicKey->setText(file_path+'/'+file_name);
-//    //--------------------------------------------------------
-//    this->OpenPublicKeyPath = file_path + '/' + file_name;
-//   
-//
-//    ifstream infile;
-//    infile.open(OpenPublicKeyPath.toStdString().data());   //将文件流对象与文件连接起来 
-//
-//    if (infile.is_open()) {
-//
-//        string s;
-//        while (getline(infile, s))
-//        {
-//            this->ClientPublicKey = this->ClientPublicKey+s;
-//          }
-//
-//        infile.close();             //关闭文件输入流
-//
-//        this->TextEditPublicKey->setText(QString::fromStdString(this->ClientPublicKey));
-//
-//        //this->ButtonCreateCertificate->show();
-//    }
-//    else
-//    {
-//        this->TextEditPublicKey->setText("文件打开失败");
-//    }
-//
-//
-//}
-
-
-////证书保存按钮（未做验证）
-//void ApplyFor::ClickSaveCertificateButton() {
-//
-//    QString dirPath = QFileDialog::getExistingDirectory(this, "选择目录", "", QFileDialog::ShowDirsOnly);
-//    
-//    FILE* file;
-//    file = fopen((dirPath.toStdString()+"./cert.pem").c_str(), "wb");
-//    PEM_write_X509(file,this->x509);
-//    fclose(file);
-//
-//
-//}
 
 
 void ApplyFor::ClickFunctionAlter() {

@@ -18,15 +18,11 @@ public:
 	string Certificate;
 	string ClientName;
 
-	string CreateTime;
-	string DieTime;
-	string DeleteTime;
+	long CreateTime;
+	long DieTime;
+	long DeleteTime;
 
-
-	time_t getCreateTime();
-	time_t getDieTime();
-	time_t getDeleteTime();
-
+	void setTime(string tm,int tag);
 
 };
 

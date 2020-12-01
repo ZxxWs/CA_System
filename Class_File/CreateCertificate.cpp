@@ -54,22 +54,11 @@ int CreateCertificate::Create() {
     //long i = time_t(0);
 
     //----------------------设置数据库插入数据时间-----------------------
-    //long转string
+
     time_t now;
     time(&now);
-    ostringstream os;
-    ostringstream os2;
-    os << now;
-    os2 << (now+31536000L);
-    string strCreateTime;
-    string strDieTime;
-    istringstream is(os.str());
-    istringstream is2(os2.str());
-    is >> strCreateTime;
-    is2 >> strDieTime;
-
-    this->CertTable.CreateTime = strCreateTime;
-    this->CertTable.DieTime = strDieTime;
+    this->CertTable.CreateTime = now;
+    this->CertTable.DieTime = now + 31536000L;
 
     //----------------------设置数据库插入数据时间-----------------------
 
@@ -123,23 +112,6 @@ int CreateCertificate::Create() {
         infile.close();             //关闭文件输入流
     }
     //从文件中读取证书--------------------------------------------
-
-
-    //FILE* f;
-    //f = fopen("key.pem", "wb");
-    //PEM_write_PrivateKey(
-    //    f,     /* write the key to the file we've opened */
-    //    pkey,    /* our key from earlier */
-    //    EVP_des_ede3_cbc(), /* default cipher for encrypting the key on disk */
-    //    "replace_me",  /* passphrase required for decrypting the key on disk */
-    //    10,     /* length of the passphrase string */
-    //    NULL,    /* callback for requesting a password */
-    //    NULL    /* data to pass to the callback */
-    //);
-
-
-
-
 
     return 0;
 }
