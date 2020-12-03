@@ -23,7 +23,7 @@ CA_System::CA_System(QWidget *parent)
     this->ComboBoxUserKind = ui.ComboBoxUserKind;
 
     //填充下拉菜单--------------------------------
-    QStringList str;
+    QStringList str;//QStringList类型
     str << "普通用户" << "游客" << "管理员";
     ComboBoxUserKind->insertItems(3,str);
     //填充下拉菜单--------------------------------
@@ -32,6 +32,7 @@ CA_System::CA_System(QWidget *parent)
     //将按钮和点击事件绑定-------------------------
     connect(ui.ButtonLogIn, SIGNAL(clicked()), this, SLOT(ClickLogInButton()));
     connect(ui.ButtonSignIn, SIGNAL(clicked()), this, SLOT(ClickSignInButton()));
+    //UI的按钮、和此界面的点击函数绑定
     //将按钮和点击事件绑定-------------------------
 
 
@@ -40,23 +41,23 @@ CA_System::CA_System(QWidget *parent)
 void CA_System::ClickLogInButton() {
 
 
-    int t = getInputDate();//获取输入内容
+    int t = getInputDate();//调用getInputDate获取输入内容
     if ( t== 0) {
 
         UserClass LogUser = UserClass();
 
         SearchClass s = SearchClass(NowUser.UserName, "username", 0);
-        s.toSearch();
+        s.toSearch();//执行查询
 
         if (NowUser.UserPassWord == s.UserClassList[0].UserPassWord&& NowUser.UserTag == s.UserClassList[0].UserTag) {
 
 
             this->LabelTips->setText("");
-            NowUser = s.UserClassList[0];
+
+            NowUser = s.UserClassList[0];//未用本句
             Search* searchWin = new Search(s.UserClassList[0], this);
             connect(searchWin, SIGNAL(sendsignal()), this, SLOT(ReShowWindow()));//返回功能绑定，下个界面返回sendsignal，此界面searchWin，执行ReShowWindow
             searchWin->show();
-            //////如果登录成功，跳转Search界面:0普通用户，1游客，2管理员
             this->hide();
 
         }
@@ -69,15 +70,12 @@ void CA_System::ClickLogInButton() {
     }
     else if(t==2)
     {
-        Search* searchWin = new Search(NowUser, this);
-        connect(searchWin, SIGNAL(sendsignal()), this, SLOT(ReShowWindow()));
+        Search* searchWin = new Search(NowUser,this);//this指当前界面
+        connect(searchWin, SIGNAL(sendsignal()), this, SLOT(ReShowWindow()));//将searchWin界面、searchWin界面的sendsignal信息和ReShowWindow函数绑定
         searchWin->show();
-        this->hide();
+        this->hide();//隐藏当前界面
     }
    
-
-    
-
 }
 
 void CA_System::ClickSignInButton() {
@@ -96,22 +94,25 @@ void CA_System::ReShowWindow() {
 
 int CA_System::getInputDate() {
 
+    //设置当前User的属性为读取的内容-----------------------------
     this->NowUser.UserName = this->LineEditUserName->displayText().toStdString();
     this->NowUser.UserPassWord = this->LineEditUserPassWord->displayText().toStdString();
     this->NowUser.UserTag= this->ComboBoxUserKind->currentIndex();
+    //设置当前User的属性为读取的内容-------------------------------
 
+    //如果选择的是”游客“
     if (this->NowUser.UserTag == 1) {
         this->NowUser.UserName = "游客";
         this->NowUser.UserTag = 1;
         return 2;
     }
+    //如果输入有空
     else if (this->NowUser.UserName == "" || this->NowUser.UserPassWord == "") {
         this->LabelTips->setText("用户名或密码不能为空");
         return 1;
     }
 
     return 0;
-
 
 }
 

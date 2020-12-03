@@ -1,9 +1,7 @@
 #include "DeleteClass.h"
 
 DeleteClass::DeleteClass()
-{
-
-}
+{}
 
 void DeleteClass::Del(CertificateTable cert)
 {

@@ -34,10 +34,10 @@ SignIn::SignIn(QWidget* parent)
     connect(ui.PushButtonSure, SIGNAL(clicked()), this, SLOT(ClickSureButton()));
     connect(ui.PushButtonBack, SIGNAL(clicked()), this, SLOT(ClickBackButton()));//将按钮和点击事件绑定
 
-
-    QStringList str;
-    str << "普通用户" << "管理员";
-    this->ComboBoxType->insertItems(2, str);//填充下拉菜单
+    ////填充下拉菜单--------------未用
+    //QStringList str;
+    //str << "普通用户" << "管理员";
+    //this->ComboBoxType->insertItems(2, str);
 
 }
 
@@ -95,8 +95,8 @@ bool SignIn::getData() {
         this->signInUser.UserTag = 2;
     }*/
 
-    this->signInUser.UserTag = 0;
-    this->signInUser.IsCheck = 0;
+    this->signInUser.UserTag = 0;//普通用户
+    this->signInUser.IsCheck = 0;//未用
 
 
     if (s1 != this->signInUser.UserPassWord) {

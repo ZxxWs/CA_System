@@ -131,8 +131,6 @@ void ApplyFor::ClickSelectCertificatePathButton()
     this->LineEditSelectCertificatePath->setText(dirPath);
 }
 
-
-
 void ApplyFor::ClickFunctionAlter() {
     if (this->tagFunctionAlter == 0) {//此时按钮点击后切换到生成证书的功能
         this->tagFunctionAlter = 1;

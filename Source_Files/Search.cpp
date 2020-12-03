@@ -41,16 +41,19 @@ Search::Search(UserClass nowUser,QWidget* parent)
 
     HideOrShow(0);
 
-    if (nowUser.UserTag == 1) {//如果用户是游客，不显示申请按钮
+    if (nowUser.UserTag != 0) {//如果用户是游客，不显示申请按钮
         this->ButtonApplyFor->hide();
     }
-    else if (nowUser.UserTag == 2) {
+   /* else if (nowUser.UserTag == 2) {
         this->ButtonApplyFor->setText("注册者审核");
-    }
+    }*/
 
     
     this->NowUser = nowUser;
-    this->LabelUserName->setText(QString::fromStdString("用户：" + NowUser.UserName));
+    this->LabelUserName->setText(QString::fromStdString("用户：" + NowUser.UserName)); 
+    if (nowUser.UserTag == 2) {
+        this->LabelUserName->setText(QString::fromStdString("用户：" + NowUser.UserName+"(管理员)"));
+    }
 
     QStringList str;
     str << "通过证书号查询" << "通过证书字符串查询" ;
@@ -232,6 +235,7 @@ void Search::ClickDeleteButton() {
     del.Del(this->delCert);
     InsertClass ins;
     ins.Ins(this->delCert, 1);
+    this->lab->setText("删除成功");
 
 }
 

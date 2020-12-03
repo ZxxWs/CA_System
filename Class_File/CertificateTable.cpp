@@ -22,6 +22,7 @@ void CertificateTable::setTime(string tm, int tag)
 	default:
 		break;
 	}
+
 }
 
 

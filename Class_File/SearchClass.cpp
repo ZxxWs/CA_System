@@ -45,7 +45,8 @@ int SearchClass::toSearch() {	//返回0：失败,返回1：查询失败,返回5：查询成功
 
 		if (this->SearchTag == 0) {//查询Login表
 			
-			for (int i = 0; column = mysql_fetch_row(res); i++){ //判断是否为空，如果不判断话程序会直接卡死
+			for (int i = 0; column = mysql_fetch_row(res); i++){ 
+				//判断是否为空，如果不判断话程序会直接卡死
 			
 				this->UserClassList[i].UserName=column[0];
 				this->UserClassList[i].UserPassWord = column[1];

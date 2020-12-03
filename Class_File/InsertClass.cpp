@@ -3,8 +3,6 @@
 #include <string>
 #pragma execution_character_set("UTF-8")//用于qt的编码，如果没有，界面会有中文乱码
 
-
-
 using namespace std;
 
 InsertClass::InsertClass()
@@ -23,7 +21,7 @@ void InsertClass::Ins(UserClass insertUser,int tag) {
 
 			SearchClass search = SearchClass(insertUser.UserName, "UserName", 1);
 			search.toSearch();
-
+			//查是否有重复名字用户
 			if (search.UserClassList[0].UserName != insertUser.UserName) {
 
 				string str = "insert into usertable  (UserName,UserPassWord,UserTag,UserTEL,UserCompany,UserRemark) values ('" 
@@ -36,9 +34,8 @@ void InsertClass::Ins(UserClass insertUser,int tag) {
 
 				this->tips = str;
 
-
 				sprintf_s(AddQuery, &str[0]);
-				if (mysql_query(AddMysql, AddQuery))        //执行SQL语句  
+				if (mysql_query(AddMysql, AddQuery)) //执行SQL语句  
 				{
 					this->tips = "注册失败,请检查输入内容。";
 					return;
@@ -52,6 +49,7 @@ void InsertClass::Ins(UserClass insertUser,int tag) {
 			else
 			{
 				this->tips = "用户名重复";
+				return;
 			}
 		}
 		else
@@ -62,12 +60,14 @@ void InsertClass::Ins(UserClass insertUser,int tag) {
 	else
 	{
 		this->tips = "数据库连接失败，请检查网络设置";
+		return;
 	}
 
 }
 
 
 //tag=0插入证书表，tag=1插入删除表
+//此函数需要重构----------------------------------！！！！！！！！！！！！！！
 void InsertClass::Ins(CertificateTable insertCertificate, int tag) {
 
 	this->tips = "false";
@@ -81,12 +81,12 @@ void InsertClass::Ins(CertificateTable insertCertificate, int tag) {
 				+ insertCertificate.ClientName + "',"
 				+ to_string(insertCertificate.CreateTime) + ","
 				+ to_string(insertCertificate.DieTime) +
-				")";
+				")";//构建一个数据库插入语句
 
-			this->tips = str;
+			this->tips = str;//用于测试
 
-			sprintf_s(AddQuery, &str[0]);
-			if (mysql_query(AddMysql, AddQuery))        //执行SQL语句  
+			sprintf_s(AddQuery, &str[0]);//把String转为Char[]类型
+			if (mysql_query(AddMysql, AddQuery)) //执行SQL语句  
 			{
 				this->tips = "生成失败。";
 				return;
@@ -107,7 +107,7 @@ void InsertClass::Ins(CertificateTable insertCertificate, int tag) {
 				+ to_string(insertCertificate.CreateTime) + ","
 				+ to_string(insertCertificate.DieTime) + ","
 				+ to_string(insertCertificate.DeleteTime) +
-				")";
+				")";//构建一个数据库插入语句
 
 			this->tips = str;
 
@@ -128,11 +128,13 @@ void InsertClass::Ins(CertificateTable insertCertificate, int tag) {
 	{
 		this->tips = "数据库连接失败，请检查网络设置";
 	}
+
 }
 
 
 //连接数据库函数
 bool  InsertClass::ConnectDatabase() {
+
 	//初始化mysql  
 	mysql_init(AddMysql);
 	//返回false则连接失败，返回true则连接成功  
